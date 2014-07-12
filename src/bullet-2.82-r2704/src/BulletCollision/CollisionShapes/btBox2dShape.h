@@ -133,8 +133,8 @@ public:
 		m_implicitShapeDimensions = (unScaledImplicitShapeDimensionsWithMargin * m_localScaling) - oldMargin;
 
 		//Sinkingsugar Fix/Hack
-		auto x = scaling.getX() * 0.5f;
-		auto y = scaling.getY() * 0.5f;
+		float x = scaling.getX() * 0.5f;
+		float y = scaling.getY() * 0.5f;
 		m_vertices[0].setValue(-x, -y, 0);
 		m_vertices[1].setValue(x, -y, 0);
 		m_vertices[2].setValue(x, y, 0);

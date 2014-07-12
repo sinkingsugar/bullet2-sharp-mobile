@@ -46,3 +46,5 @@ Win32
 Win32Debug
 *.CachedGlyphs
 *.CachedImage
+src/Android/obj
+src/Android/libs
