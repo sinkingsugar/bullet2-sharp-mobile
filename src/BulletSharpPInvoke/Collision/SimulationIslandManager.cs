@@ -41,9 +41,7 @@ namespace BulletSharp
 				Dispose(false);
 			}
 
-			[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-			static extern void btSimulationIslandManager_IslandCallback_processIsland(IntPtr obj, IntPtr bodies, int numBodies, IntPtr manifolds, int numManifolds, int islandId);
-			[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+		    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 			static extern void btSimulationIslandManager_IslandCallback_delete(IntPtr obj);
 		}
 
@@ -135,9 +133,8 @@ namespace BulletSharp
 		static extern void btSimulationIslandManager_findUnions(IntPtr obj, IntPtr dispatcher, IntPtr colWorld);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern bool btSimulationIslandManager_getSplitIslands(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btSimulationIslandManager_getUnionFind(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btSimulationIslandManager_initUnionFind(IntPtr obj, int n);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btSimulationIslandManager_setSplitIslands(IntPtr obj, bool doSplitIslands);

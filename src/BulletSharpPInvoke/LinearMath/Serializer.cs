@@ -198,17 +198,15 @@ namespace BulletSharp
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern IntPtr btSerializer_allocate(IntPtr obj, uint size, int numElements);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btSerializer_finalizeChunk(IntPtr obj, IntPtr chunk, IntPtr structType, int chunkCode, IntPtr oldPtr);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern string btSerializer_findNameForPointer(IntPtr obj, IntPtr ptr);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern IntPtr btSerializer_findPointer(IntPtr obj, IntPtr oldPtr);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btSerializer_finishSerialization(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btSerializer_getBufferPointer(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern int btSerializer_getCurrentBufferSize(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern int btSerializer_getSerializationFlags(IntPtr obj);
@@ -216,9 +214,8 @@ namespace BulletSharp
 		static extern IntPtr btSerializer_getUniquePointer(IntPtr obj, IntPtr oldPtr);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btSerializer_registerNameForPointer(IntPtr obj, IntPtr ptr, string name);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btSerializer_serializeName(IntPtr obj, IntPtr ptr);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btSerializer_setSerializationFlags(IntPtr obj, int flags);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btSerializer_startSerialization(IntPtr obj);
@@ -297,9 +294,5 @@ namespace BulletSharp
 		static extern IntPtr btDefaultSerializer_new(int totalSize);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern IntPtr btDefaultSerializer_new2();
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btDefaultSerializer_internalAlloc(IntPtr obj, uint size);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btDefaultSerializer_writeHeader(IntPtr obj, IntPtr buffer);
 	}
 }

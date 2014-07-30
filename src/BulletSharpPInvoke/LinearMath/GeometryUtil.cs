@@ -38,9 +38,8 @@ namespace BulletSharp
 		static extern void btGeometryUtil_getPlaneEquationsFromVertices(IntPtr vertices, IntPtr planeEquationsOut);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btGeometryUtil_getVerticesFromPlaneEquations(IntPtr planeEquations, IntPtr verticesOut);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern bool btGeometryUtil_isInside(IntPtr vertices, IntPtr planeNormal, float margin);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern bool btGeometryUtil_isPointInsidePlanes(IntPtr planeEquations, [In] ref Vector3 point, float margin);
 	}
 }

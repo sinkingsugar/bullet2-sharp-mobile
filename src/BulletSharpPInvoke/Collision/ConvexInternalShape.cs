@@ -32,6 +32,7 @@ namespace BulletSharp
 			btConvexInternalShape_setSafeMargin4(_native, ref halfExtents);
 		}
 
+        /*
 		public Vector3 ImplicitShapeDimensions
 		{
 			get
@@ -42,7 +43,9 @@ namespace BulletSharp
 			}
 			set { btConvexInternalShape_setImplicitShapeDimensions(_native, ref value); }
 		}
+        */
 
+        /*
 		public Vector3 LocalScalingNV
 		{
 			get
@@ -52,16 +55,17 @@ namespace BulletSharp
 				return value;
 			}
 		}
+        */
 
 		public float MarginNV
 		{
 			get { return btConvexInternalShape_getMarginNV(_native); }
 		}
 
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btConvexInternalShape_getImplicitShapeDimensions(IntPtr obj, [Out] out Vector3 value);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern void btConvexInternalShape_getLocalScalingNV(IntPtr obj, [Out] out Vector3 value);
+		//[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+		//static extern void btConvexInternalShape_getImplicitShapeDimensions(IntPtr obj, [Out] out Vector3 value);
+		//[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        //static extern void btConvexInternalShape_getLocalScalingNV(IntPtr obj, [Out] out Vector3 value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btConvexInternalShape_getMarginNV(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

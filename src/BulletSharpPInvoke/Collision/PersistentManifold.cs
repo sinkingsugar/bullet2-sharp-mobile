@@ -1,3 +1,4 @@
+using MonoTouch;
 using SiliconStudio.Core.Mathematics;
 using System;
 using System.Runtime.InteropServices;
@@ -17,20 +18,28 @@ namespace BulletSharp
         static ContactProcessedEventHandler _contactProcessed;
         static ContactDestroyedUnmanagedDelegate _contactDestroyedUnmanaged;
         static ContactProcessedUnmanagedDelegate _contactProcessedUnmanaged;
+#if !__iOS__
         static IntPtr _contactDestroyedUnmanagedPtr;
         static IntPtr _contactProcessedUnmanagedPtr;
+#endif
 
         [UnmanagedFunctionPointer(Native.Conv)]
         private delegate bool ContactDestroyedUnmanagedDelegate(IntPtr userPersistantData);
         [UnmanagedFunctionPointer(Native.Conv)]
         private delegate bool ContactProcessedUnmanagedDelegate(IntPtr cp, IntPtr body0, IntPtr body1);
 
+#if __iOS__
+        [MonoPInvokeCallback(typeof(ContactDestroyedUnmanagedDelegate))]
+#endif
         static bool ContactDestroyedUnmanaged(IntPtr userPersistentData)
         {
             _contactDestroyed.Invoke(GCHandle.FromIntPtr(userPersistentData).Target);
 	        return false;
         }
 
+#if __iOS__
+        [MonoPInvokeCallback(typeof(ContactProcessedUnmanagedDelegate))]
+#endif
         static bool ContactProcessedUnmanaged(IntPtr cp, IntPtr body0, IntPtr body1)
         {
             _contactProcessed.Invoke(new ManifoldPoint(cp, true), CollisionObject.GetManaged(body0), CollisionObject.GetManaged(body1));
@@ -44,9 +53,15 @@ namespace BulletSharp
                 if (_contactDestroyedUnmanaged == null)
                 {
                     _contactDestroyedUnmanaged = new ContactDestroyedUnmanagedDelegate(ContactDestroyedUnmanaged);
+#if !__iOS__
                     _contactDestroyedUnmanagedPtr = Marshal.GetFunctionPointerForDelegate(_contactDestroyedUnmanaged);
+#endif
                 }
+#if !__iOS__
                 setGContactDestroyedCallback(_contactDestroyedUnmanagedPtr);
+#else
+                setGContactDestroyedCallback(_contactDestroyedUnmanaged);
+#endif
                 _contactDestroyed += value;
             }
             remove
@@ -54,7 +69,11 @@ namespace BulletSharp
                 _contactDestroyed -= value;
                 if (_contactDestroyed == null)
                 {
+#if !__iOS__
                     setGContactDestroyedCallback(IntPtr.Zero);
+#else
+                    setGContactDestroyedCallback(null);
+#endif
                 }
             }
         }
@@ -66,9 +85,15 @@ namespace BulletSharp
                 if (_contactProcessedUnmanaged == null)
                 {
                     _contactProcessedUnmanaged = new ContactProcessedUnmanagedDelegate(ContactProcessedUnmanaged);
+#if !__iOS__
                     _contactProcessedUnmanagedPtr = Marshal.GetFunctionPointerForDelegate(_contactProcessedUnmanaged);
+#endif
                 }
+#if !__iOS__
                 setGContactProcessedCallback(_contactProcessedUnmanagedPtr);
+#else
+                setGContactProcessedCallback(_contactProcessedUnmanaged);
+#endif
                 _contactProcessed += value;
             }
             remove
@@ -76,7 +101,11 @@ namespace BulletSharp
                 _contactProcessed -= value;
                 if (_contactProcessed == null)
                 {
+#if !__iOS__
                     setGContactProcessedCallback(IntPtr.Zero);
+#else
+                    setGContactProcessedCallback(null);
+#endif
                 }
             }
         }
@@ -252,13 +281,17 @@ namespace BulletSharp
 		static extern void btPersistentManifold_setNumContacts(IntPtr obj, int cachedPoints);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern bool btPersistentManifold_validContactDistance(IntPtr obj, IntPtr pt);
+
+#if __iOS__
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern IntPtr getGContactDestroyedCallback();
+        static extern void setGContactDestroyedCallback(ContactDestroyedUnmanagedDelegate value);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern IntPtr getGContactProcessedCallback();
-        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        static extern void setGContactProcessedCallback(ContactProcessedUnmanagedDelegate value);
+#else
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void setGContactDestroyedCallback(IntPtr value);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void setGContactProcessedCallback(IntPtr value);
+#endif
 	}
 }

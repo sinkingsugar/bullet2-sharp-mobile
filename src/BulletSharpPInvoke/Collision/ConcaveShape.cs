@@ -1,7 +1,4 @@
-using SiliconStudio.Core.Mathematics;
 using System;
-using System.Runtime.InteropServices;
-using System.Security;
 
 namespace BulletSharp
 {
@@ -27,7 +24,5 @@ namespace BulletSharp
 			btConcaveShape_processAllTriangles(_native, callback._native, ref aabbMin, ref aabbMax);
 		}
         */
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btConcaveShape_processAllTriangles(IntPtr obj, IntPtr callback, [In] ref Vector3 aabbMin, [In] ref Vector3 aabbMax);
 	}
 }

@@ -262,7 +262,5 @@ namespace BulletSharp
         static extern void btTriangleIndexVertexArray_addIndexedMesh(IntPtr obj, IntPtr mesh, PhyScalarType indexType);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btTriangleIndexVertexArray_addIndexedMesh2(IntPtr obj, IntPtr mesh);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btTriangleIndexVertexArray_getIndexedMeshArray(IntPtr obj);
 	}
 }

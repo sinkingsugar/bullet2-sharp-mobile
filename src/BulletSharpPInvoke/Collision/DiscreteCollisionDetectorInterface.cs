@@ -193,6 +193,7 @@ namespace BulletSharp
 		{
 		}
 
+        /*
 		public StorageResult()
 			: base(btStorageResult_new())
 		{
@@ -208,6 +209,7 @@ namespace BulletSharp
             }
 			set { btStorageResult_setClosestPointInB(_native, ref value); }
 		}
+        */
 
 		public float Distance
 		{
@@ -226,10 +228,10 @@ namespace BulletSharp
 			set { btStorageResult_setNormalOnSurfaceB(_native, ref value); }
 		}
 
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btStorageResult_new();
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btStorageResult_getClosestPointInB(IntPtr obj, [Out] out Vector3 value);
+		//[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+		//static extern IntPtr btStorageResult_new();
+		//[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+		//static extern void btStorageResult_getClosestPointInB(IntPtr obj, [Out] out Vector3 value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btStorageResult_getDistance(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

@@ -42,7 +42,5 @@ namespace BulletSharp
 		static extern IntPtr btConvexTriangleMeshShape_new2(IntPtr meshInterface);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btConvexTriangleMeshShape_calculatePrincipalAxisTransform(IntPtr obj, [In] ref Matrix principal, [Out] out Vector3 inertia, [Out] out float volume);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btConvexTriangleMeshShape_getMeshInterface(IntPtr obj);
 	}
 }

@@ -199,8 +199,7 @@ namespace BulletSharp
         static extern void btRigidBody_btRigidBodyConstructionInfo_getLocalInertia(IntPtr obj, [Out] out Vector3 value);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern float btRigidBody_btRigidBodyConstructionInfo_getMass(IntPtr obj);
-        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern IntPtr btRigidBody_btRigidBodyConstructionInfo_getMotionState(IntPtr obj);
+
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern float btRigidBody_btRigidBodyConstructionInfo_getRestitution(IntPtr obj);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

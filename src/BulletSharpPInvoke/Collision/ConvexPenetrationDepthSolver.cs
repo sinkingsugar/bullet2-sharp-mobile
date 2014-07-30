@@ -1,4 +1,3 @@
-using SiliconStudio.Core.Mathematics;
 using System;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -39,9 +38,7 @@ namespace BulletSharp
 			Dispose(false);
 		}
 
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern bool btConvexPenetrationDepthSolver_calcPenDepth(IntPtr obj, IntPtr simplexSolver, IntPtr convexA, IntPtr convexB, [In] ref Matrix transA, [In] ref Matrix transB, [In] ref Vector3 v, [In] ref Vector3 pa, [In] ref Vector3 pb, IntPtr debugDraw);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btConvexPenetrationDepthSolver_delete(IntPtr obj);
 	}
 }

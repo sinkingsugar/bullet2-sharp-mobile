@@ -54,6 +54,7 @@ namespace BulletSharp
             btStridingMeshInterface_getLockedReadOnlyVertexIndexBase(_native, out vertexbase, out numverts, out type, out stride, out indexbase, out indexstride, out numfaces, out indicestype, subpart);
 		}
 
+        /*
         public void GetLockedVertexIndexBase(out IntPtr vertexbase, out int numverts, out PhyScalarType type, out int stride, out IntPtr indexbase, out int indexstride, out int numfaces, out PhyScalarType indicestype, int subpart)
 		{
             btStridingMeshInterface_getLockedVertexIndexBase(_native, out vertexbase, out numverts, out type, out stride, out indexbase, out indexstride, out numfaces, out indicestype, subpart);
@@ -63,6 +64,7 @@ namespace BulletSharp
 		{
             btStridingMeshInterface_getLockedVertexIndexBase2(_native, out vertexbase, out numverts, out type, out stride, out indexbase, out indexstride, out numfaces, out indicestype);
 		}
+        */
 
 		public void GetPremadeAabb(Vector3 aabbMin, Vector3 aabbMax)
 		{
@@ -151,10 +153,10 @@ namespace BulletSharp
 		static extern int btStridingMeshInterface_calculateSerializeBufferSize(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void btStridingMeshInterface_getLockedReadOnlyVertexIndexBase(IntPtr obj, [Out] out IntPtr vertexbase, [Out] out int numverts, [Out] out PhyScalarType type, [Out] out int stride, [Out] out IntPtr indexbase, [Out] out int indexstride, [Out] out int numfaces, [Out] out PhyScalarType indicestype, int subpart);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern void btStridingMeshInterface_getLockedVertexIndexBase(IntPtr obj, [Out] out IntPtr vertexbase, [Out] out int numverts, [Out] out PhyScalarType type, [Out] out int stride, [Out] out IntPtr indexbase, [Out] out int indexstride, [Out] out int numfaces, [Out] out PhyScalarType indicestype, int subpart);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern void btStridingMeshInterface_getLockedVertexIndexBase2(IntPtr obj, [Out] out IntPtr vertexbase, [Out] out int numverts, [Out] out PhyScalarType type, [Out] out int stride, [Out] out IntPtr indexbase, [Out] out int indexstride, [Out] out int numfaces, [Out] out PhyScalarType indicestype);
+		//[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        //static extern void btStridingMeshInterface_getLockedVertexIndexBase(IntPtr obj, [Out] out IntPtr vertexbase, [Out] out int numverts, [Out] out PhyScalarType type, [Out] out int stride, [Out] out IntPtr indexbase, [Out] out int indexstride, [Out] out int numfaces, [Out] out PhyScalarType indicestype, int subpart);
+		//[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        //static extern void btStridingMeshInterface_getLockedVertexIndexBase2(IntPtr obj, [Out] out IntPtr vertexbase, [Out] out int numverts, [Out] out PhyScalarType type, [Out] out int stride, [Out] out IntPtr indexbase, [Out] out int indexstride, [Out] out int numfaces, [Out] out PhyScalarType indicestype);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern int btStridingMeshInterface_getNumSubParts(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
@@ -163,15 +165,13 @@ namespace BulletSharp
 		static extern void btStridingMeshInterface_getScaling(IntPtr obj, [Out] out Vector3 value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern bool btStridingMeshInterface_hasPremadeAabb(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btStridingMeshInterface_InternalProcessAllTriangles(IntPtr obj, IntPtr callback, [In] ref Vector3 aabbMin, [In] ref Vector3 aabbMax);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btStridingMeshInterface_preallocateIndices(IntPtr obj, int numindices);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btStridingMeshInterface_preallocateVertices(IntPtr obj, int numverts);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btStridingMeshInterface_serialize(IntPtr obj, IntPtr dataBuffer, IntPtr serializer);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+
+	    [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btStridingMeshInterface_setPremadeAabb(IntPtr obj, [In] ref Vector3 aabbMin, [In] ref Vector3 aabbMax);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btStridingMeshInterface_setScaling(IntPtr obj, [In] ref Vector3 scaling);

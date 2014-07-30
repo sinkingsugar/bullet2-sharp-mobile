@@ -169,11 +169,6 @@ namespace BulletSharp
             DrawLine(ref from, ref to, ref fromColor);
         }
 
-        void DrawAabb(Vector3 from, Vector3 to, Vector3 color)
-        {
-            DrawAabb(ref from, ref to, ref color);
-        }
-
         public virtual void DrawAabb(ref Vector3 from, ref Vector3 to, ref Vector3 color)
         {
             Vector3 halfExtents = (to - from) * 0.5f;

@@ -42,6 +42,11 @@ void btGearConstraint_setAxisB(btGearConstraint* obj, btScalar* axisB)
 	obj->setAxisB(VECTOR3_USE(axisB));
 }
 
+btScalar btGearConstraint_getRatio(btGearConstraint* obj)
+{
+	return obj->getRatio();
+}
+
 void btGearConstraint_setRatio(btGearConstraint* obj, btScalar ratio)
 {
 	obj->setRatio(ratio);
