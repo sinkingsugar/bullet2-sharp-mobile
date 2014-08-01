@@ -677,7 +677,7 @@ void btCollisionWorld_delete(btCollisionWorld* obj)
 	delete obj;
 }
 
-AllHitsConvexResultCallback* btCollisionWorld_AllHitsConvexResultCallback_new(pAddSingleResult2 callback)
+AllHitsConvexResultCallback* btCollisionWorld_AllHitsConvexResultCallback_new(pAddSingleResult2 callback, void* sharpReference)
 {
-	return new AllHitsConvexResultCallback(callback);
+	return new AllHitsConvexResultCallback(callback, sharpReference);
 }

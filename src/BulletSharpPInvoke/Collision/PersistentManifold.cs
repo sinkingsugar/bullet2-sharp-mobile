@@ -1,4 +1,6 @@
+#if __iOS__
 using MonoTouch;
+#endif
 using SiliconStudio.Core.Mathematics;
 using System;
 using System.Runtime.InteropServices;

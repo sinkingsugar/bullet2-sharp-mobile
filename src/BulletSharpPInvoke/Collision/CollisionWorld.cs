@@ -1,3 +1,6 @@
+#if __iOS__
+using MonoTouch;
+#endif
 using SiliconStudio.Core.Mathematics;
 using System;
 using System.Runtime.InteropServices;
@@ -740,15 +743,21 @@ namespace BulletSharp
         }
 
         [UnmanagedFunctionPointer(Native.Conv)]
-        delegate float AddSingleResultUnmanagedDelegate(IntPtr collider, [In] ref Vector3 point, [In] ref Vector3 normal);
+        protected delegate float AddSingleResultUnmanagedDelegate(IntPtr sharpReference, IntPtr collider, [In] ref Vector3 point, [In] ref Vector3 normal);
 
         AddSingleResultUnmanagedDelegate _addSingleResult;
 
-        float AddSingleResultUnmanaged(IntPtr collider, [In] ref Vector3 point, [In] ref Vector3 normal)
+
+#if __iOS__
+        [MonoPInvokeCallback(typeof(AddSingleResultUnmanagedDelegate))]
+#endif
+        static float AddSingleResultUnmanaged(IntPtr sharpReference, IntPtr collider, [In] ref Vector3 point, [In] ref Vector3 normal)
         {
-            mHitsNormalWorld.Add(normal);
-            mHitsPointWorld.Add(point);
-            mCollisionObjects.Add(CollisionObject.GetManaged(collider));
+            var obj = (AllHitsConvexResultCallback)GCHandle.FromIntPtr(sharpReference).Target;
+
+            obj.mHitsNormalWorld.Add(normal);
+            obj.mHitsPointWorld.Add(point);
+            obj.mCollisionObjects.Add(CollisionObject.GetManaged(collider));
 
             return 0.0f;
         }
@@ -758,15 +767,33 @@ namespace BulletSharp
 		{
 		}
 
+        private GCHandle mHandle;
+
 		public AllHitsConvexResultCallback()
             : base(IntPtr.Zero)
 		{
+		    mHandle = GCHandle.Alloc(this);
+
             _addSingleResult = new AddSingleResultUnmanagedDelegate(AddSingleResultUnmanaged);
-            _native = btCollisionWorld_AllHitsConvexResultCallback_new(Marshal.GetFunctionPointerForDelegate(_addSingleResult));
+#if !__iOS__
+            _native = btCollisionWorld_AllHitsConvexResultCallback_new(Marshal.GetFunctionPointerForDelegate(_addSingleResult), GCHandle.ToIntPtr(mHandle));
+#else
+            _native = btCollisionWorld_AllHitsConvexResultCallback_new(_addSingleResult, GCHandle.ToIntPtr(mHandle));
+#endif
 		}
 
+        ~AllHitsConvexResultCallback()
+        {
+            mHandle.Free();
+        }
+
+#if !__iOS__
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        protected static extern IntPtr btCollisionWorld_AllHitsConvexResultCallback_new(IntPtr resultCallback);
+        protected static extern IntPtr btCollisionWorld_AllHitsConvexResultCallback_new(IntPtr resultCallback, IntPtr sharpReference);
+#else
+        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        protected static extern IntPtr btCollisionWorld_AllHitsConvexResultCallback_new(AddSingleResultUnmanagedDelegate resultCallback, IntPtr sharpReference);
+#endif
     }
 
 	public abstract class ContactResultCallback : IDisposable

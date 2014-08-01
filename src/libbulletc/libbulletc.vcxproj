@@ -85,7 +85,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBBULLETNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>S:\paradox\deps\BulletPhysics\src\bullet-2.82-r2704\src;S:\paradox\deps\BulletPhysics\src\bullet-2.82-r2704\Extras\Serialize\BulletWorldImporter</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\src;S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\Extras\Serialize\BulletWorldImporter</AdditionalIncludeDirectories>
       <CallingConvention>Cdecl</CallingConvention>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>

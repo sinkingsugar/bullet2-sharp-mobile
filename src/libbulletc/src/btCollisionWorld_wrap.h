@@ -32,12 +32,12 @@ public:
 	virtual bool baseNeedsCollision(btBroadphaseProxy* proxy0) const;
 };
 
-typedef float (*pAddSingleResult2)(const btCollisionObject* object, btVector3& point, btVector3& normal);
+typedef float (*pAddSingleResult2)(const void* sharpReference, const btCollisionObject* object, btVector3& point, btVector3& normal);
 
 class AllHitsConvexResultCallback : public btCollisionWorld::ConvexResultCallback
 {
 public:
-	AllHitsConvexResultCallback(pAddSingleResult2 callback) : mCb(callback)
+	AllHitsConvexResultCallback(pAddSingleResult2 callback, void* sharpReference) : mCb(callback), mSharpReference(sharpReference)
 	{}
 
 	virtual	btScalar addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
@@ -50,14 +50,14 @@ public:
 			normal = convexResult.m_hitCollisionObject->getWorldTransform().getBasis()*convexResult.m_hitNormalLocal;
 		} 
 
-		if(mCb) mCb(convexResult.m_hitCollisionObject, point, normal);
+		if(mCb) mCb(mSharpReference, convexResult.m_hitCollisionObject, point, normal);
 
 		return convexResult.m_hitFraction;
 	}
 
 private:
 	pAddSingleResult2 mCb;
-
+	void* mSharpReference;
 };
 #endif
 
@@ -165,7 +165,7 @@ extern "C"
 	EXPORT btCollisionWorld_ContactResultCallbackWrapper* btCollisionWorld_ContactResultCallbackWrapper_new(pAddSingleResult addSingleResultCallback, pNeedsCollision needsCollisionCallback);
 	EXPORT bool btCollisionWorld_ContactResultCallbackWrapper_needsCollision(btCollisionWorld_ContactResultCallbackWrapper* obj, btBroadphaseProxy* proxy0);
 
-	EXPORT AllHitsConvexResultCallback* btCollisionWorld_AllHitsConvexResultCallback_new(pAddSingleResult2 callback);
+	EXPORT AllHitsConvexResultCallback* btCollisionWorld_AllHitsConvexResultCallback_new(pAddSingleResult2 callback, void* sharpReference);
 
 	EXPORT btCollisionWorld* btCollisionWorld_new(btDispatcher* dispatcher, btBroadphaseInterface* broadphasePairCache, btCollisionConfiguration* collisionConfiguration);
 	EXPORT void btCollisionWorld_addCollisionObject(btCollisionWorld* obj, btCollisionObject* collisionObject, short collisionFilterGroup, short collisionFilterMask);
