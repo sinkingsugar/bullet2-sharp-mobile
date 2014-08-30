@@ -122,7 +122,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBBULLETNET_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\bullet\src\;..\..\bullet\Extras\Serialize\BulletWorldImporter</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\src;S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\Extras\Serialize\BulletWorldImporter</AdditionalIncludeDirectories>
       <CallingConvention>Cdecl</CallingConvention>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
@@ -132,7 +132,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>LinearMath_MinSizeRel.lib;BulletCollision_MinsizeRel.lib;BulletDynamics_MinsizeRel.lib;BulletFileLoader_MinsizeRel.lib;BulletMultiThreaded_MinSizeRel.lib;BulletSoftBody_MinsizeRel.lib;BulletWorldImporter_MinsizeRel.lib;BulletXmlWorldImporter_MinsizeRel.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\bullet\msvc\2010\lib\MinSizeRel</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>S:\bullet-2.82-r2704-CMade\lib\MinSizeRel</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -226,9 +226,6 @@
     <ClInclude Include="src\btManifoldPoint_wrap.h" />
     <ClInclude Include="src\btMinkowskiPenetrationDepthSolver_wrap.h" />
     <ClInclude Include="src\btMultiSphereShape_wrap.h" />
-    <ClInclude Include="src\btNNCGConstraintSolver_wrap.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="src\btOverlappingPairCache_wrap.h" />
     <ClInclude Include="src\btOverlappingPairCallback_wrap.h" />
     <ClInclude Include="src\btParallelConstraintSolver_wrap.h" />
@@ -362,9 +359,6 @@
     <ClCompile Include="src\btManifoldPoint_wrap.cpp" />
     <ClCompile Include="src\btMinkowskiPenetrationDepthSolver_wrap.cpp" />
     <ClCompile Include="src\btMultiSphereShape_wrap.cpp" />
-    <ClCompile Include="src\btNNCGConstraintSolver_wrap.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="src\btOverlappingPairCache_wrap.cpp" />
     <ClCompile Include="src\btOverlappingPairCallback_wrap.cpp" />
     <ClCompile Include="src\btParallelConstraintSolver_wrap.cpp" />

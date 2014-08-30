@@ -1276,8 +1276,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Volumes/S/bullet2-sharp-mobile/src/libbulletc/src/",
-					"/Volumes/S/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
+					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/libbulletc/src/",
+					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1295,8 +1295,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Volumes/S/bullet2-sharp-mobile/src/libbulletc/src/",
-					"/Volumes/S/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
+					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/libbulletc/src/",
+					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
