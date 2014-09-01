@@ -162,6 +162,7 @@
     <Compile Include="LinearMath\GeometryUtil.cs" />
     <Compile Include="LinearMath\IDebugDraw.cs" />
     <Compile Include="LinearMath\MotionState.cs" />
+    <Compile Include="LinearMath\SharpMotionState.cs" />
     <Compile Include="LinearMath\PolarDecomposition.cs" />
     <Compile Include="LinearMath\Serializer.cs" />
     <Compile Include="LinearMath\TransformUtil.cs" />

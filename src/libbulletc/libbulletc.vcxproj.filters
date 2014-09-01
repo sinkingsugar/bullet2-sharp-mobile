@@ -306,9 +306,6 @@
     <ClInclude Include="src\btSoftBodyRigidBodyCollisionConfiguration_wrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\btNNCGConstraintSolver_wrap.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\btFixedConstraint_wrap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -368,6 +365,9 @@
     </ClInclude>
     <ClInclude Include="src\btSphereTriangleCollisionAlgorithm_wrap.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SharpMotionState.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -659,9 +659,6 @@
     <ClCompile Include="src\btSoftBodyRigidBodyCollisionConfiguration_wrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\btNNCGConstraintSolver_wrap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\btFixedConstraint_wrap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -720,6 +717,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\btSphereTriangleCollisionAlgorithm_wrap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SharpMotionState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,26 +9,36 @@ namespace BulletSharp
     {
         internal IntPtr _native;
 
-        internal MotionState _motionState;
+        //internal MotionState _motionState;
 
         internal RigidBodyConstructionInfo(IntPtr native)
         {
             _native = native;
         }
 
+        /*
         public RigidBodyConstructionInfo(float mass, MotionState motionState, CollisionShape collisionShape, Vector3 localInertia)
         {
             _native = btRigidBody_btRigidBodyConstructionInfo_new(mass, (motionState != null) ? motionState._native : IntPtr.Zero,
                 (collisionShape != null) ? collisionShape._native : IntPtr.Zero, ref localInertia);
             _motionState = motionState;
         }
+        */
 
+        public RigidBodyConstructionInfo(float mass, SharpMotionState motionState, CollisionShape collisionShape, Vector3 localInertia)
+        {
+            _native = btRigidBody_btRigidBodyConstructionInfo_new(mass, (motionState != null) ? motionState._native : IntPtr.Zero,
+                (collisionShape != null) ? collisionShape._native : IntPtr.Zero, ref localInertia);
+        }
+
+        /*
         public RigidBodyConstructionInfo(float mass, MotionState motionState, CollisionShape collisionShape)
         {
             _native = btRigidBody_btRigidBodyConstructionInfo_new2(mass, (motionState != null) ? motionState._native : IntPtr.Zero,
                 (collisionShape != null) ? collisionShape._native : IntPtr.Zero);
             _motionState = motionState;
         }
+        */
 
         public float AdditionalAngularDampingFactor
         {
@@ -113,6 +123,7 @@ namespace BulletSharp
             set { btRigidBody_btRigidBodyConstructionInfo_setMass(_native, value); }
         }
 
+        /*
         public MotionState MotionState
         {
             get
@@ -125,6 +136,7 @@ namespace BulletSharp
                 _motionState = value;
             }
         }
+        */
 
         public float Restitution
         {
@@ -171,8 +183,8 @@ namespace BulletSharp
 
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern IntPtr btRigidBody_btRigidBodyConstructionInfo_new(float mass, IntPtr motionState, IntPtr collisionShape, [In] ref Vector3 localInertia);
-        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern IntPtr btRigidBody_btRigidBodyConstructionInfo_new2(float mass, IntPtr motionState, IntPtr collisionShape);
+        //[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        //static extern IntPtr btRigidBody_btRigidBodyConstructionInfo_new2(float mass, IntPtr motionState, IntPtr collisionShape);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern float btRigidBody_btRigidBodyConstructionInfo_getAdditionalAngularDampingFactor(IntPtr obj);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
@@ -232,8 +244,8 @@ namespace BulletSharp
         static extern void btRigidBody_btRigidBodyConstructionInfo_setLocalInertia(IntPtr obj, [In] ref Vector3 value);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void btRigidBody_btRigidBodyConstructionInfo_setMass(IntPtr obj, float value);
-        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern void btRigidBody_btRigidBodyConstructionInfo_setMotionState(IntPtr obj, IntPtr value);
+        //[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        //static extern void btRigidBody_btRigidBodyConstructionInfo_setMotionState(IntPtr obj, IntPtr value);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void btRigidBody_btRigidBodyConstructionInfo_setRestitution(IntPtr obj, float value);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

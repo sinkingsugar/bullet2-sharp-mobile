@@ -19,9 +19,9 @@ namespace BulletSharp
             btMotionState_getWorldTransform(_native, out transform);
         }
 
-        public void setWorldTransform(Matrix t)
+        public void SetWorldTransform(Matrix transform)
         {
-            btMotionState_setWorldTransform(_native, ref t);
+            btMotionState_setWorldTransform(_native, ref transform);
         }
 
         public Matrix WorldTransform
