@@ -9,9 +9,12 @@ namespace BulletSharp
 	{
 		internal IntPtr _native;
 
+        private bool _do_not_delete;
+
 		internal DispatcherInfo(IntPtr native)
 		{
 			_native = native;
+            _do_not_delete = true;
 		}
 
 		public DispatcherInfo()
@@ -101,7 +104,7 @@ namespace BulletSharp
 		{
 			if (_native != IntPtr.Zero)
 			{
-				btDispatcherInfo_delete(_native);
+				if(!_do_not_delete) btDispatcherInfo_delete(_native);
 				_native = IntPtr.Zero;
 			}
 		}
