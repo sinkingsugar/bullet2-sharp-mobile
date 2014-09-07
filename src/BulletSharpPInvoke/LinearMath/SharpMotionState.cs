@@ -79,7 +79,7 @@ namespace BulletSharp
         static extern IntPtr SharpMotionState_Setup(IntPtr getWorldTransformCallback, IntPtr setWorldTransformCallback);  
 #else
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        protected static extern IntPtr SharpMotionState_Setup(GetWorldTransformUnmanagedDelegate getWorldTransformCallback, SetWorldTransformUnmanagedDelegate setWorldTransformCallback); 
+        static extern IntPtr SharpMotionState_Setup(GetWorldTransformUnmanagedDelegate getWorldTransformCallback, SetWorldTransformUnmanagedDelegate setWorldTransformCallback); 
 #endif
 
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

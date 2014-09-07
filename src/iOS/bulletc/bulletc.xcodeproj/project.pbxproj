@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9928EDF519B8D17600B3750D /* SharpMotionState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9928EDF419B8D17600B3750D /* SharpMotionState.cpp */; };
 		99335A64197AC7D3000650DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99335A63197AC7D3000650DA /* Foundation.framework */; };
 		99335A72197AC7D3000650DA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99335A71197AC7D3000650DA /* XCTest.framework */; };
 		99335A73197AC7D3000650DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99335A63197AC7D3000650DA /* Foundation.framework */; };
@@ -274,6 +275,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9928EDF419B8D17600B3750D /* SharpMotionState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SharpMotionState.cpp; path = "../../../../192.168.1.16/bullet2-sharp-mobile/src/libbulletc/src/SharpMotionState.cpp"; sourceTree = "<group>"; };
 		99335A60197AC7D3000650DA /* libbulletc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbulletc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		99335A63197AC7D3000650DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99335A67197AC7D3000650DA /* bulletc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bulletc-Prefix.pch"; sourceTree = "<group>"; };
@@ -740,6 +742,7 @@
 		9979BCE719888F4F00FE00C5 /* wrappers */ = {
 			isa = PBXGroup;
 			children = (
+				9928EDF419B8D17600B3750D /* SharpMotionState.cpp */,
 				9979BD5F19888FCE00FE00C5 /* btActionInterface_wrap.cpp */,
 				9979BD6019888FCE00FE00C5 /* btAlignedBroadphasePairArray_wrap.cpp */,
 				9979BD6119888FCE00FE00C5 /* btAlignedCollisionObjectArray_wrap.cpp */,
@@ -952,6 +955,7 @@
 				9979BDEA19888FCF00FE00C5 /* btCompoundCompoundCollisionAlgorithm_wrap.cpp in Sources */,
 				9979BDF219888FCF00FE00C5 /* btConvexConcaveCollisionAlgorithm_wrap.cpp in Sources */,
 				9979BE5F19889E0600FE00C5 /* btGImpactShape.cpp in Sources */,
+				9928EDF519B8D17600B3750D /* SharpMotionState.cpp in Sources */,
 				9979BDFE19888FCF00FE00C5 /* btDefaultMotionState_wrap.cpp in Sources */,
 				99335ACA197ACDD1000650DA /* btSphereBoxCollisionAlgorithm.cpp in Sources */,
 				9979BE6119889E0600FE00C5 /* gim_box_set.cpp in Sources */,
@@ -1271,13 +1275,14 @@
 			buildSettings = {
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/bulletc.dst;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "bulletc/bulletc-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/libbulletc/src/",
-					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
+					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/libbulletc/src/",
+					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1290,13 +1295,14 @@
 			buildSettings = {
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/bulletc.dst;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "bulletc/bulletc-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/libbulletc/src/",
-					"/Volumes/192.168.1.13/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
+					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/libbulletc/src/",
+					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
