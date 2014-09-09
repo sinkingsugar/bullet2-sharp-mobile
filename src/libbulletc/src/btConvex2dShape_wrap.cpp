@@ -15,8 +15,8 @@ btConvexShape* btConvex2dShape_getChildShape(btConvex2dShape* obj)
 	return obj->getChildShape();
 }
 
-btBox2dShape* btBox2dShape_new(float halfExtent)
+btBox2dShape* btBox2dShape_new(float halfExtentX, float halfExtentY)
 {
-	btVector3 s(halfExtent, halfExtent, halfExtent);
+	btVector3 s(halfExtentX, halfExtentY, 0);
 	return new btBox2dShape(s);
 }

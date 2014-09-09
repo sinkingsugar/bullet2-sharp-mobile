@@ -13,12 +13,12 @@ namespace BulletSharp
 		{
 		}
 
-        public Box2DShape(float boxHalfExtent)
-            : base(btBox2dShape_new(boxHalfExtent))
+        public Box2DShape(Vector2 boxHalfExtents)
+            : base(btBox2dShape_new(boxHalfExtents.X, boxHalfExtents.Y))
         {
         }
 
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern IntPtr btBox2dShape_new(float halfExtent);
+        static extern IntPtr btBox2dShape_new(float halfExtentX, float halfExtentY);
     }
 }

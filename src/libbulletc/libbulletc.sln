@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libbulletc", "libbulletc.vcxproj", "{F5B66DE3-E5A6-4A5A-AF3A-E10BC0F6F951}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VHACD", "..\VHACD_Lib\VHACD\VHACD.vcxproj", "{F7ED6A05-8E3A-4239-BEB7-ACAA3128FBF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,12 @@ Global
 		{F5B66DE3-E5A6-4A5A-AF3A-E10BC0F6F951}.Release|Win32.Build.0 = Release|Win32
 		{F5B66DE3-E5A6-4A5A-AF3A-E10BC0F6F951}.Release|x64.ActiveCfg = Release|x64
 		{F5B66DE3-E5A6-4A5A-AF3A-E10BC0F6F951}.Release|x64.Build.0 = Release|x64
+		{F7ED6A05-8E3A-4239-BEB7-ACAA3128FBF7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F7ED6A05-8E3A-4239-BEB7-ACAA3128FBF7}.Debug|Win32.Build.0 = Debug|Win32
+		{F7ED6A05-8E3A-4239-BEB7-ACAA3128FBF7}.Debug|x64.ActiveCfg = Debug|Win32
+		{F7ED6A05-8E3A-4239-BEB7-ACAA3128FBF7}.Release|Win32.ActiveCfg = Release|Win32
+		{F7ED6A05-8E3A-4239-BEB7-ACAA3128FBF7}.Release|Win32.Build.0 = Release|Win32
+		{F7ED6A05-8E3A-4239-BEB7-ACAA3128FBF7}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

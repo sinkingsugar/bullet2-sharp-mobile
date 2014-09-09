@@ -275,7 +275,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		9928EDF419B8D17600B3750D /* SharpMotionState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SharpMotionState.cpp; path = "../../../../192.168.1.16/bullet2-sharp-mobile/src/libbulletc/src/SharpMotionState.cpp"; sourceTree = "<group>"; };
+		9928EDF419B8D17600B3750D /* SharpMotionState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SharpMotionState.cpp; path = ../../libbulletc/src/SharpMotionState.cpp; sourceTree = "<group>"; };
 		99335A60197AC7D3000650DA /* libbulletc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbulletc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		99335A63197AC7D3000650DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99335A67197AC7D3000650DA /* bulletc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bulletc-Prefix.pch"; sourceTree = "<group>"; };
@@ -1281,8 +1281,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/libbulletc/src/",
-					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
+					"/Volumes/Paradox/bullet2-sharp-mobile/src/libbulletc/src/",
+					"/Volumes/Paradox/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1301,8 +1301,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/libbulletc/src/",
-					"/Volumes/192.168.1.16/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
+					"/Volumes/Paradox/bullet2-sharp-mobile/src/libbulletc/src/",
+					"/Volumes/Paradox/bullet2-sharp-mobile/src/bullet-2.82-r2704/src/",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
