@@ -11,34 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\inc\btAlignedAllocator.h" />
-    <ClInclude Include="..\inc\btAlignedObjectArray.h" />
-    <ClInclude Include="..\inc\btConvexHullComputer.h" />
-    <ClInclude Include="..\inc\btMinMax.h" />
-    <ClInclude Include="..\inc\btScalar.h" />
-    <ClInclude Include="..\inc\btVector3.h" />
-    <ClInclude Include="..\inc\kdtree.h" />
-    <ClInclude Include="..\inc\vhacdGraph.h" />
-    <ClInclude Include="..\inc\vhacdHACD.h" />
-    <ClInclude Include="..\inc\vhacdMaterial.h" />
-    <ClInclude Include="..\inc\vhacdMesh.h" />
-    <ClInclude Include="..\inc\vhacdMeshDecimator.h" />
-    <ClInclude Include="..\inc\vhacdSArray.h" />
-    <ClInclude Include="..\inc\vhacdVector.h" />
-    <ClInclude Include="..\inc\vhacdVersion.h" />
     <ClInclude Include="wrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\inc\vhacdVector.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\btAlignedAllocator.cpp" />
-    <ClCompile Include="..\src\btConvexHullComputer.cpp" />
-    <ClCompile Include="..\src\kdtree.c" />
-    <ClCompile Include="..\src\vhacdGraph.cpp" />
-    <ClCompile Include="..\src\vhacdHACD.cpp" />
-    <ClCompile Include="..\src\vhacdMesh.cpp" />
-    <ClCompile Include="..\src\vhacdMeshDecimator.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\bestfit.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\bestfitobb.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\cd_hull.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\cd_wavefront.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\concavity.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\ConvexBuilder.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\ConvexDecomposition.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\fitsphere.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\float_math.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\meshvolume.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\planetri.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\raytri.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\splitplane.cpp" />
+    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\vlookup.cpp" />
     <ClCompile Include="wrapper.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -82,10 +71,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;VHACD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\Extras\ConvexDecomposition;S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>S:\bullet-2.82-r2704-CMade\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,7 +89,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VHACD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\src;S:\bullet2-sharp-mobile\src\VHACD_Lib\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\Extras\ConvexDecomposition;S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -104,7 +97,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>S:\bullet-2.82-r2704-CMade\lib\MinSizeRel;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>BulletCollision_MinsizeRel.lib;LinearMath_MinsizeRel.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>LinearMath_MinsizeRel.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

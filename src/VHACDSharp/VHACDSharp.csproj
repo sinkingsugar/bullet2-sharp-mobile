@@ -39,14 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VhacdMesh.cs" />
+    <Compile Include="ConvexHullMesh.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BulletSharpPInvoke\BulletSharpPInvoke.csproj">
-      <Project>{76fded5b-2c12-453e-b499-cb669e55ad5b}</Project>
-      <Name>BulletSharpPInvoke</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

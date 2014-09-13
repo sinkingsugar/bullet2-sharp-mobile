@@ -10,7 +10,9 @@
 
 extern "C"
 {
-	EXPORT void* CreateMesh(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices);
-	EXPORT void DeleteMesh(void* mesh);
-	EXPORT void* GenerateCompoundShape(void* mesh, int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, double alpha, double concavityThreshold);
+	EXPORT void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices, unsigned int depth, float cpercent, float ppercent, unsigned int maxVerts, float skinWidth);
+	EXPORT void DeleteHulls(void* hulls);
+	EXPORT unsigned int GetNumHulls(void* hulls);
+	EXPORT unsigned int GetHullNumPoints(void* hulls, unsigned int index);
+	EXPORT void CopyHullPoints(void* hulls, unsigned int index, float* outPoints);
 }

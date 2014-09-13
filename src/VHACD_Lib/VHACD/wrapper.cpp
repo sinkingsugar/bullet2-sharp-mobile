@@ -1,73 +1,95 @@
+#include "ConvexBuilder.h"
+#include <vector>
 #include "wrapper.h"
-#include "vhacdHACD.h"
-#include "BulletCollision/CollisionShapes/btCompoundShape.h"
-#include "BulletCollision/CollisionShapes/btConvexHullShape.h"
 
-void CallBack(const char * msg)
+struct Hull
 {
-	return;
+	unsigned int points;
+	float* verts;
+};
+
+struct CompoundHull
+{
+	unsigned int count;
+	Hull* hulls;
+};
+
+class MyConvexDecomposition : public ConvexDecomposition::ConvexDecompInterface
+{	
+public:
+	std::vector<Hull> Hulls;
+
+	virtual void ConvexDecompResult(ConvexDecomposition::ConvexResult &result)
+	{
+		Hull hull;
+		hull.points = result.mHullVcount*3;
+		hull.verts = (float*)malloc(sizeof(float) * hull.points);
+		memcpy(hull.verts, result.mHullVertices, sizeof(float) * hull.points);
+
+		Hulls.push_back(hull);
+	}
+};
+
+void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices, unsigned int depth, float cpercent, float ppercent, unsigned maxVerts, float skinWidth)
+{
+	MyConvexDecomposition cb;
+
+	ConvexDecomposition::DecompDesc desc;
+	
+	desc.mCallback = &cb;
+	desc.mCpercent = cpercent;
+	desc.mDepth = depth;
+	desc.mIndices = indices;
+	desc.mMaxVertices = maxVerts;
+	desc.mPpercent = ppercent;
+	desc.mSkinWidth = skinWidth;
+	desc.mTcount = indicesCount / 3;
+	desc.mVcount = vertexCount;
+	desc.mVertices = vertexes;
+
+	ConvexBuilder builder(desc.mCallback);
+	unsigned int hullsSize = builder.process(desc);
+
+	CompoundHull* compound = new CompoundHull();
+	compound->count = cb.Hulls.size();
+	compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
+
+	for(unsigned int i = 0; i < compound->count; i++)
+	{
+		compound->hulls[i].points = cb.Hulls[i].points;
+		compound->hulls[i].verts = cb.Hulls[i].verts;
+	}
+
+	return compound;
 }
 
-void* CreateMesh(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices)
+unsigned int GetNumHulls(void* hulls)
 {
-	VHACD::Mesh* mesh = new VHACD::Mesh();
-
-	mesh->ResizePoints(vertexCount);
-	mesh->ResizeTriangles(indicesCount);
-
-	for(unsigned int i = 0; i < vertexCount; i++)
-	{
-		VHACD::Vec3<VHACD::Real> vertex(vertexes[(i * 3) + 0], vertexes[(i * 3) + 1], vertexes[(i * 3) + 2]);
-		mesh->SetPoint(i, vertex);
-	}
-
-	for(unsigned int i = 0; i < indicesCount; i++)
-	{
-		VHACD::Vec3<long> index(indices[(i * 3) + 0], indices[(i * 3) + 1], indices[(i * 3) + 2]);
-		mesh->SetTriangle(i, index);
-	}
-
-	return mesh;
+	CompoundHull* compound = (CompoundHull*)hulls;
+	return compound->count;
 }
 
-void DeleteMesh(void* mesh)
+unsigned int GetHullNumPoints(void* hulls, unsigned int index)
 {
-	VHACD::Mesh* m = (VHACD::Mesh*)mesh;
-	delete m;
+	CompoundHull* compound = (CompoundHull*)hulls;
+	return compound->hulls[index].points;
 }
 
-void* GenerateCompoundShape(void* mesh, int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, double alpha, double concavityThreshold)
+void CopyHullPoints(void* hulls, unsigned int index, float* outPoints)
 {
-	VHACD::Mesh* m = (VHACD::Mesh*)mesh;
-	std::vector<VHACD::Mesh*> parts;
-	if(!VHACD::ApproximateConvexDecomposition(*m, depth, posSampling, angleSampling, posRefine, angleRefine, alpha, concavityThreshold, parts, &CallBack))
+	CompoundHull* compound = (CompoundHull*)hulls;
+	memcpy(outPoints, compound->hulls[index].verts, sizeof(float) * compound->hulls[index].points);
+}
+
+void DeleteHulls(void* hulls)
+{
+	CompoundHull* compound = (CompoundHull*)hulls;
+	for(unsigned int i = 0; i < compound->count; i++)
 	{
-		return NULL;
+		free(compound->hulls[i].verts);
 	}
 
-	btCompoundShape* cs = new btCompoundShape();
+	free(compound->hulls);
 
-	for(int i = 0; i < parts.size(); i++)
-	{
-		VHACD::Mesh convexHull;
-		parts[i]->ComputeConvexHull(convexHull);
-
-		std::vector<btScalar> points;
-		int npoints = (int)convexHull.GetNPoints();
-		for(int p = 0; p < npoints; i++)
-		{
-			VHACD::Vec3<VHACD::Real> point = convexHull.GetPoint(i);
-			points[(i * 3) + 0] = (btScalar)point.X();
-			points[(i * 3) + 1] = (btScalar)point.Y();
-			points[(i * 3) + 2] = (btScalar)point.Z();
-		}
-
-		btConvexHullShape* chs = new btConvexHullShape(&points[0], npoints);
-
-		btTransform identity;
-		identity.setIdentity();
-		cs->addChildShape(identity, chs);
-	}
-
-	return cs;
+	delete compound;
 }
