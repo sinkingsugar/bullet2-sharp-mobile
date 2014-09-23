@@ -15,4 +15,6 @@ extern "C"
 	EXPORT unsigned int GetNumHulls(void* hulls);
 	EXPORT unsigned int GetHullNumPoints(void* hulls, unsigned int index);
 	EXPORT void CopyHullPoints(void* hulls, unsigned int index, float* outPoints);
+	EXPORT unsigned int GetHullNumIndices(void* hulls, unsigned int index);
+	EXPORT void CopyHullIndices(void* hulls, unsigned int index, unsigned int* outIndices);
 }

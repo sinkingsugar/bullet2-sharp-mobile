@@ -39,6 +39,12 @@ namespace VHACDSharp
             CopyHullPoints(_internalCompound, index, points);
         }
 
+        public void CopyIndices(uint index, out uint[] indices)
+        {
+            indices = new uint[GetHullNumIndices(_internalCompound, index)];
+            CopyHullIndices(_internalCompound, index, indices);
+        }
+
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern IntPtr GenerateCompoundShape(uint vertexCount, uint indicesCount, [In] float[] vertexes, [In] uint[] indices, uint depth, float cpercent, float ppercent, uint maxVerts, float skinWidth);
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
@@ -46,10 +52,16 @@ namespace VHACDSharp
 
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern uint GetNumHulls(IntPtr hulls);
+
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern uint GetHullNumPoints(IntPtr hulls, uint index);
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern void CopyHullPoints(IntPtr hulls, uint index, [Out] float[] outPoints);
+
+        [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
+        private static extern uint GetHullNumIndices(IntPtr hulls, uint index);
+        [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
+        private static extern void CopyHullIndices(IntPtr hulls, uint index, [Out] uint[] outPoints);
 
         public void Dispose()
         {

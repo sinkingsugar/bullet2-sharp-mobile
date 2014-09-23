@@ -14,20 +14,6 @@
     <ClInclude Include="wrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\bestfit.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\bestfitobb.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\cd_hull.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\cd_wavefront.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\concavity.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\ConvexBuilder.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\ConvexDecomposition.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\fitsphere.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\float_math.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\meshvolume.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\planetri.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\raytri.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\splitplane.cpp" />
-    <ClCompile Include="..\..\bullet-2.82-r2704\Extras\ConvexDecomposition\vlookup.cpp" />
     <ClCompile Include="wrapper.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -71,14 +57,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;VHACD_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\Extras\ConvexDecomposition;S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\Extras\HACD;S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\Extras\ConvexDecomposition;S:\bullet2-sharp-mobile\src\bullet-2.82-r2704\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>S:\bullet-2.82-r2704-CMade\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>LinearMath_Debug.lib;ConvexDecomposition_Debug.lib;HACD_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
