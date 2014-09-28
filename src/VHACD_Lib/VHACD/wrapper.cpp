@@ -1,5 +1,5 @@
-#include "ConvexBuilder.h"
-#include "hacdHACD.h"
+#include <vhacdHACD.h>
+#include <vhacdMeshDecimator.h>
 #include <vector>
 #include "wrapper.h"
 
@@ -17,141 +17,144 @@ struct CompoundHull
 	Hull* hulls;
 };
 
-class MyConvexDecomposition : public ConvexDecomposition::ConvexDecompInterface
-{	
-public:
-	std::vector<Hull> Hulls;
-
-	virtual void ConvexDecompResult(ConvexDecomposition::ConvexResult &result)
-	{
-		Hull hull;
-
-		hull.points = result.mHullVcount * 3;
-		hull.verts = (float*)malloc(sizeof(float) * hull.points);
-		memcpy(hull.verts, result.mHullVertices, sizeof(float) * hull.points);
-
-		hull.indices = result.mHullTcount * 3;
-		hull.tris = (unsigned int*)malloc(sizeof(unsigned int) * hull.indices);
-		memcpy(hull.tris, result.mHullIndices, sizeof(unsigned int) * hull.indices);
-
-		Hulls.push_back(hull);
-	}
-};
+void VHCDCallBack(const char * msg)
+{
+	printf("%s\n", msg);
+}
 
 void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices, unsigned int depth, float cpercent, float ppercent, unsigned maxVerts, float skinWidth)
 {
-	MyConvexDecomposition cb;
-
-	/*
-	ConvexDecomposition::DecompDesc desc;
-	
-	desc.mCallback = &cb;
-	desc.mCpercent = cpercent;
-	desc.mDepth = depth;
-	desc.mIndices = indices;
-	desc.mMaxVertices = maxVerts;
-	desc.mPpercent = ppercent;
-	desc.mSkinWidth = skinWidth;
-	desc.mTcount = indicesCount / 3;
-	desc.mVcount = vertexCount;
-	desc.mVertices = vertexes;
-
-	ConvexBuilder builder(desc.mCallback);
-	unsigned int hullsSize = builder.process(desc);
-	*/
-
-	std::vector< HACD::Vec3<HACD::Real> > points;
-	std::vector< HACD::Vec3<long> > triangles;
+	long nTriangles = indicesCount / 3;
+	long nPoints = vertexCount;
+	VHACD::Vec3<VHACD::Real>* pPoints = new VHACD::Vec3<VHACD::Real>[nPoints];
+    VHACD::Vec3<long>* pTriangles = new VHACD::Vec3<long>[nTriangles];
 
 	for(int i=0; i < vertexCount; i++ ) 
 	{
 		int index = i * 3;
-		HACD::Vec3<HACD::Real> vertex(vertexes[index], vertexes[index+1], vertexes[index+2]);
-		points.push_back(vertex);
+		VHACD::Vec3<VHACD::Real> vertex(vertexes[index], vertexes[index+1], vertexes[index+2]);
+		pPoints[i] = vertex;
 	}
 
 	for(int i=0; i < indicesCount / 3;i++)
 	{
 		int index = i * 3;
-		HACD::Vec3<long> triangle(indices[index], indices[index+1], indices[index+2]);
-		triangles.push_back(triangle);
+		VHACD::Vec3<long> triangle(indices[index], indices[index+1], indices[index+2]);
+		pTriangles[i] = triangle;
 	}
 
-	HACD::HACD myHACD;
-	myHACD.SetPoints(&points[0]);
-	myHACD.SetNPoints(points.size());
-	myHACD.SetTriangles(&triangles[0]);
-	myHACD.SetNTriangles(triangles.size());
-	myHACD.SetCompacityWeight(0.1);
-	myHACD.SetVolumeWeight(0.0);
+	VHACD::Mesh mesh;
+    mesh.ResizePoints(nPoints);
+    mesh.ResizeTriangles(nTriangles);
+    for(size_t p = 0; p < nPoints; ++p) mesh.SetPoint(p, pPoints[p]);
+    for(size_t t = 0; t < nTriangles; ++t) mesh.SetTriangle(t, pTriangles[t]);
+    delete [] pPoints;
+	delete [] pTriangles;
 
-	// HACD parameters
-	// Recommended parameters: 2 100 0 0 0 0
-	size_t nClusters = 2;
-	double concavity = 10;
-	bool invert = false;
-	bool addExtraDistPoints = false;
-	bool addNeighboursDistPoints = false;
-	bool addFacesPoints = false;       
+	mesh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1.off");
 
-	myHACD.SetNClusters(nClusters);                     // minimum number of clusters
-	myHACD.SetNVerticesPerCH(maxVerts);                      // max of 100 vertices per convex-hull
-	myHACD.SetConcavity(concavity);                     // maximum concavity
-	myHACD.SetAddExtraDistPoints(addExtraDistPoints);   
-	myHACD.SetAddNeighboursDistPoints(addNeighboursDistPoints);   
-	myHACD.SetAddFacesPoints(addFacesPoints); 
+	mesh.CleanDuplicatedVectices();
 
-	myHACD.Compute();
-	nClusters = myHACD.GetNClusters();
+	mesh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1_cleaned.off");
 
-	for (int c=0;c<nClusters;c++)
+	if(nTriangles > 1000)
 	{
-		//generate convex result
-		size_t nPoints = myHACD.GetNPointsCH(c);
-		size_t nTriangles = myHACD.GetNTrianglesCH(c);
+		nTriangles = mesh.GetNTriangles();
+		nPoints = mesh.GetNPoints();
 
-		float* vertices = new float[nPoints*3];
-		unsigned int* triangles = new unsigned int[nTriangles*3];
-				
-		HACD::Vec3<HACD::Real> * pointsCH = new HACD::Vec3<HACD::Real>[nPoints];
-		HACD::Vec3<long> * trianglesCH = new HACD::Vec3<long>[nTriangles];
-		myHACD.GetCH(c, pointsCH, trianglesCH);
+		double decimationTris = ((double)nTriangles / 100.0) * 5.0;
+		long ldecimationTris = (long)decimationTris;
 
-		// points
-		for(size_t v = 0; v < nPoints; v++)
+		std::vector< VHACD::Vec3<VHACD::Real> > points;
+		std::vector< VHACD::Vec3<long> > triangles;
+
+		for(int i=0; i < nPoints; i++ ) 
 		{
-			vertices[3*v] = pointsCH[v].X();
-			vertices[3*v+1] = pointsCH[v].Y();
-			vertices[3*v+2] = pointsCH[v].Z();
-		}
-		// triangles
-		for(size_t f = 0; f < nTriangles; f++)
-		{
-			triangles[3*f] = trianglesCH[f].X();
-			triangles[3*f+1] = trianglesCH[f].Y();
-			triangles[3*f+2] = trianglesCH[f].Z();
+			points.push_back(mesh.GetPoint(i));
 		}
 
-		delete [] pointsCH;
-		delete [] trianglesCH;
+		for(int i=0; i < nTriangles;i++)
+		{
+			triangles.push_back(mesh.GetTriangle(i));
+		}
 
-		ConvexResult r(nPoints, vertices, nTriangles, triangles);
-		cb.ConvexDecompResult(r);
+		VHACD::MeshDecimator decimator;
+		decimator.SetCallBack(&VHCDCallBack);
+		decimator.Initialize(points.size(), triangles.size(), &points[0], &triangles[0]);
+		decimator.Decimate(0, ldecimationTris);
+
+		nTriangles = decimator.GetNTriangles();
+        nPoints = decimator.GetNVertices();
+        pPoints = new VHACD::Vec3<VHACD::Real>[nPoints];
+        pTriangles = new VHACD::Vec3<long>[nTriangles];
+        decimator.GetMeshData(pPoints, pTriangles);
+
+		mesh.ResizePoints(nPoints);
+		mesh.ResizeTriangles(nTriangles);
+		for(size_t p = 0; p < nPoints; ++p) mesh.SetPoint(p, pPoints[p]);
+		for(size_t t = 0; t < nTriangles; ++t) mesh.SetTriangle(t, pTriangles[t]);
+		delete [] pPoints;
+		delete [] pTriangles;
 	}
+
+	mesh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1_decimated.off");
+ 
+	VHACD::Mesh meshCh;
+	mesh.ComputeConvexHull(meshCh);
+	meshCh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1_decimated_ch.off");
+
+	//std::vector<VHACD::Mesh*> parts;
+    //VHACD::ApproximateConvexDecomposition(mesh, 10, 10, 10, 5, 5, 0.01, 0.01, parts, &VHCDCallBack);
 
 	//OUTPUT
 
 	CompoundHull* compound = new CompoundHull();
-	compound->count = cb.Hulls.size();
+	compound->count = 1;
+	compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
+
+	compound->hulls[0].points = meshCh.GetNPoints();
+	compound->hulls[0].indices = meshCh.GetNTriangles();
+
+	compound->hulls[0].verts = (float*)malloc(sizeof(float) * 3 * compound->hulls[0].points);	
+	const VHACD::Real* chp = meshCh.GetPoints();
+	for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
+	{
+		compound->hulls[0].verts[v] = chp[v];
+	}
+
+	compound->hulls[0].tris = (unsigned int*)malloc(sizeof(unsigned int) * 3 * compound->hulls[0].indices);	
+	const long* cht = meshCh.GetTriangles();
+	for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
+	{
+		compound->hulls[0].tris[v] = cht[v];
+	}
+
+	/*CompoundHull* compound = new CompoundHull();
+	compound->count = parts.size();
 	compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
 
 	for(unsigned int i = 0; i < compound->count; i++)
 	{
-		compound->hulls[i].points = cb.Hulls[i].points;
-		compound->hulls[i].verts = cb.Hulls[i].verts;
-		compound->hulls[i].indices = cb.Hulls[i].indices;
-		compound->hulls[i].tris = cb.Hulls[i].tris;
-	}
+		VHACD::Mesh ch;
+		parts[i]->ComputeConvexHull(ch);
+
+		compound->hulls[i].points = ch.GetNPoints();
+		compound->hulls[i].indices = ch.GetNTriangles();
+
+		compound->hulls[i].verts = (float*)malloc(sizeof(float) * 3 * compound->hulls[i].points);	
+		const VHACD::Real* chp = ch.GetPoints();
+		for(unsigned int v = 0; v < compound->hulls[i].points * 3; v++)
+		{
+			compound->hulls[i].verts[v] = chp[v];
+		}
+
+		compound->hulls[i].tris = (unsigned int*)malloc(sizeof(unsigned int) * 3 * compound->hulls[i].indices);	
+		const long* cht = ch.GetTriangles();
+		for(unsigned int v = 0; v < compound->hulls[i].points * 3; v++)
+		{
+			compound->hulls[i].tris[v] = cht[v];
+		}
+	}*/
 
 	return compound;
 }
@@ -165,25 +168,25 @@ unsigned int GetNumHulls(void* hulls)
 unsigned int GetHullNumPoints(void* hulls, unsigned int index)
 {
 	CompoundHull* compound = (CompoundHull*)hulls;
-	return compound->hulls[index].points;
+	return compound->hulls[index].points * 3;
 }
 
 void CopyHullPoints(void* hulls, unsigned int index, float* outPoints)
 {
 	CompoundHull* compound = (CompoundHull*)hulls;
-	memcpy(outPoints, compound->hulls[index].verts, sizeof(float) * compound->hulls[index].points);
+	memcpy(outPoints, compound->hulls[index].verts, sizeof(float) * 3 * compound->hulls[index].points);
 }
 
 unsigned int GetHullNumIndices(void* hulls, unsigned int index)
 {
 	CompoundHull* compound = (CompoundHull*)hulls;
-	return compound->hulls[index].indices;
+	return compound->hulls[index].indices * 3;
 }
 
 void CopyHullIndices(void* hulls, unsigned int index, unsigned int* outIndices)
 {
 	CompoundHull* compound = (CompoundHull*)hulls;
-	memcpy(outIndices, compound->hulls[index].tris, sizeof(unsigned int) * compound->hulls[index].indices);
+	memcpy(outIndices, compound->hulls[index].tris, sizeof(unsigned int) * 3 * compound->hulls[index].indices);
 }
 
 void DeleteHulls(void* hulls)
