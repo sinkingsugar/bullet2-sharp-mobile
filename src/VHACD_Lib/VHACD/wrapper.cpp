@@ -22,7 +22,8 @@ void VHCDCallBack(const char * msg)
 	printf("%s\n", msg);
 }
 
-void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices, unsigned int depth, float cpercent, float ppercent, unsigned maxVerts, float skinWidth)
+void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices, bool simpleHull,
+							int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, float alpha, float threshold)
 {
 	long nTriangles = indicesCount / 3;
 	long nPoints = vertexCount;
@@ -51,11 +52,7 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
     delete [] pPoints;
 	delete [] pTriangles;
 
-	mesh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1.off");
-
 	mesh.CleanDuplicatedVectices();
-
-	mesh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1_cleaned.off");
 
 	if(nTriangles > 1000)
 	{
@@ -96,38 +93,40 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 		delete [] pPoints;
 		delete [] pTriangles;
 	}
-
-	mesh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1_decimated.off");
  
-	VHACD::Mesh meshCh;
-	mesh.ComputeConvexHull(meshCh);
-	meshCh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1_decimated_ch.off");
-
-	std::vector<VHACD::Mesh*> parts;
-    VHACD::ApproximateConvexDecomposition(mesh, 10, 10, 10, 5, 5, 0.01, 0.01, parts, &VHCDCallBack);
-
-	//OUTPUT
-
-	/*CompoundHull* compound = new CompoundHull();
-	compound->count = 1;
-	compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
-
-	compound->hulls[0].points = meshCh.GetNPoints();
-	compound->hulls[0].indices = meshCh.GetNTriangles();
-
-	compound->hulls[0].verts = (float*)malloc(sizeof(float) * 3 * compound->hulls[0].points);	
-	const VHACD::Real* chp = meshCh.GetPoints();
-	for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
+	if(simpleHull)
 	{
-		compound->hulls[0].verts[v] = chp[v];
+		VHACD::Mesh meshCh;
+		mesh.ComputeConvexHull(meshCh);
+
+		CompoundHull* compound = new CompoundHull();
+		compound->count = 1;
+		compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
+
+		compound->hulls[0].points = meshCh.GetNPoints();
+		compound->hulls[0].indices = meshCh.GetNTriangles();
+
+		compound->hulls[0].verts = (float*)malloc(sizeof(float) * 3 * compound->hulls[0].points);	
+		const VHACD::Real* chp = meshCh.GetPoints();
+		for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
+		{
+			compound->hulls[0].verts[v] = chp[v];
+		}
+
+		compound->hulls[0].tris = (unsigned int*)malloc(sizeof(unsigned int) * 3 * compound->hulls[0].indices);	
+		const long* cht = meshCh.GetTriangles();
+		for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
+		{
+			compound->hulls[0].tris[v] = cht[v];
+		}
+
+		return compound;
 	}
 
-	compound->hulls[0].tris = (unsigned int*)malloc(sizeof(unsigned int) * 3 * compound->hulls[0].indices);	
-	const long* cht = meshCh.GetTriangles();
-	for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
-	{
-		compound->hulls[0].tris[v] = cht[v];
-	}*/
+	//else
+
+	std::vector<VHACD::Mesh*> parts;
+    VHACD::ApproximateConvexDecomposition(mesh, depth, posSampling, angleSampling, posRefine, angleRefine, alpha, threshold, parts, &VHCDCallBack);
 
 	CompoundHull* compound = new CompoundHull();
 	compound->count = parts.size();

@@ -15,17 +15,21 @@ namespace VHACDSharp
             public float[] Vertexes;
             public uint[] Indices;
 
-            public uint Depth;
-            public float Cpercent;
-            public float Ppercent;
-            public uint MaxVerts;
-            public float SkinWidth;
+            public bool SimpleHull;
+
+            public int Depth;
+            public int PosSampling;
+            public int AngleSampling;
+            public int PosRefine;
+            public int AngleRefine;
+            public float Alpha;
+            public float Threshold;
         }
 
         public ConvexHullMesh(DecompositionDesc desc)
         {
-            _internalCompound = GenerateCompoundShape(desc.VertexCount, desc.IndicesCount, desc.Vertexes, desc.Indices,
-                desc.Depth, desc.Cpercent, desc.Ppercent, desc.MaxVerts, desc.SkinWidth);
+            _internalCompound = GenerateCompoundShape(desc.VertexCount, desc.IndicesCount, desc.Vertexes, desc.Indices, desc.SimpleHull,
+                desc.Depth, desc.PosSampling, desc.AngleSampling, desc.PosRefine, desc.AngleRefine, desc.Alpha, desc.Threshold);
         }
 
         public uint Count
@@ -46,7 +50,8 @@ namespace VHACDSharp
         }
 
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
-        private static extern IntPtr GenerateCompoundShape(uint vertexCount, uint indicesCount, [In] float[] vertexes, [In] uint[] indices, uint depth, float cpercent, float ppercent, uint maxVerts, float skinWidth);
+        private static extern IntPtr GenerateCompoundShape(uint vertexCount, uint indicesCount, [In] float[] vertexes, [In] uint[] indices, bool simpleHull,
+            int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, float alpha, float threshold);
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern void DeleteHulls(IntPtr hulls);
 
