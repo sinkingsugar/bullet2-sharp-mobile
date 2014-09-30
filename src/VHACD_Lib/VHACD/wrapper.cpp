@@ -103,12 +103,12 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 	mesh.ComputeConvexHull(meshCh);
 	meshCh.SaveOFF("C:\\Users\\Giovanni\\Desktop\\test1_decimated_ch.off");
 
-	//std::vector<VHACD::Mesh*> parts;
-    //VHACD::ApproximateConvexDecomposition(mesh, 10, 10, 10, 5, 5, 0.01, 0.01, parts, &VHCDCallBack);
+	std::vector<VHACD::Mesh*> parts;
+    VHACD::ApproximateConvexDecomposition(mesh, 10, 10, 10, 5, 5, 0.01, 0.01, parts, &VHCDCallBack);
 
 	//OUTPUT
 
-	CompoundHull* compound = new CompoundHull();
+	/*CompoundHull* compound = new CompoundHull();
 	compound->count = 1;
 	compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
 
@@ -127,9 +127,9 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 	for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
 	{
 		compound->hulls[0].tris[v] = cht[v];
-	}
+	}*/
 
-	/*CompoundHull* compound = new CompoundHull();
+	CompoundHull* compound = new CompoundHull();
 	compound->count = parts.size();
 	compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
 
@@ -154,7 +154,7 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 		{
 			compound->hulls[i].tris[v] = cht[v];
 		}
-	}*/
+	}
 
 	return compound;
 }

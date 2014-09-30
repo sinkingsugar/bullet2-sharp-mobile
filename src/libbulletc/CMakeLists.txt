@@ -16,6 +16,8 @@ FIND_PATH(BULLET_INCLUDE_DIR NAMES btBulletCollisionCommon.h
   PATHS
   ${PROJECT_SOURCE_DIR}/../../bullet/src/
   ${PROJECT_SOURCE_DIR}/../bullet/src/
+  ${PROJECT_SOURCE_DIR}/../../bullet-2.82-r2704/src/
+  ${PROJECT_SOURCE_DIR}/../bullet-2.82-r2704/src/
   ENV CPATH
   /usr/include
   /usr/local/include
@@ -24,6 +26,13 @@ FIND_PATH(BULLET_INCLUDE_DIR NAMES btBulletCollisionCommon.h
 )
 INCLUDE_DIRECTORIES(${BULLET_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${BULLET_INCLUDE_DIR}/../Extras/Serialize/BulletWorldImporter/)
+
+FIND_PATH(BULLET_LIBS_DIR NAMES BulletCollision_Debug.lib
+  PATHS
+  ${PROJECT_SOURCE_DIR}/../../bullet/lib/
+  ${PROJECT_SOURCE_DIR}/../bullet/lib/
+  NO_DEFAULT_PATH
+)
 
 IF(${CMAKE_GENERATOR} MATCHES "Unix Makefiles")
 	SET(BULLET_LIB_DIR ${BULLET_INCLUDE_DIR}/..)
@@ -45,6 +54,7 @@ ELSE()
 	    SET(REL_LIB_DIR msvc/2012)
 	ENDIF()
 	LINK_DIRECTORIES(${BULLET_INCLUDE_DIR}/../${REL_LIB_DIR}/lib/${CMAKE_CFG_INTDIR})
+	LINK_DIRECTORIES(${BULLET_LIBS_DIR}/${CMAKE_CFG_INTDIR})
 	SET(BULLETC_LIB libbulletc)
 	SET(LIB_SUFFIX _${CMAKE_CFG_INTDIR}.lib)
 ENDIF()
@@ -210,8 +220,6 @@ ADD_LIBRARY(${BULLETC_LIB} SHARED
     src/btMinkowskiPenetrationDepthSolver_wrap.h
     src/btMultiSphereShape_wrap.cpp
     src/btMultiSphereShape_wrap.h
-    src/btNNCGConstraintSolver_wrap.cpp
-    src/btNNCGConstraintSolver_wrap.h
     src/btOverlappingPairCache_wrap.cpp
     src/btOverlappingPairCache_wrap.h
     src/btOverlappingPairCallback_wrap.cpp
@@ -290,6 +298,8 @@ ADD_LIBRARY(${BULLETC_LIB} SHARED
     src/btWheelInfo_wrap.h
     src/btWorldImporter_wrap.cpp
     src/btWorldImporter_wrap.h
+    src/SharpMotionState.h
+    src/SharpMotionState.cpp
     ${MULTITHREADED_SOURCE}
 )
 
