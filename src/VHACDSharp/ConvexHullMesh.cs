@@ -6,7 +6,7 @@ namespace VHACDSharp
 {
     public class ConvexHullMesh : IDisposable
     {
-        private readonly IntPtr _internalCompound;
+        private IntPtr _internalCompound;
 
         public struct DecompositionDesc
         {
@@ -26,10 +26,23 @@ namespace VHACDSharp
             public float Threshold;
         }
 
-        public ConvexHullMesh(DecompositionDesc desc)
+        private static int _sTokens = 0;
+        private readonly int _token;
+
+        public ConvexHullMesh()
+        {
+            _token = _sTokens++;
+        }
+
+        public void Generate(DecompositionDesc desc)
         {
             _internalCompound = GenerateCompoundShape(desc.VertexCount, desc.IndicesCount, desc.Vertexes, desc.Indices, desc.SimpleHull,
-                desc.Depth, desc.PosSampling, desc.AngleSampling, desc.PosRefine, desc.AngleRefine, desc.Alpha, desc.Threshold);
+                desc.Depth, desc.PosSampling, desc.AngleSampling, desc.PosRefine, desc.AngleRefine, desc.Alpha, desc.Threshold, _token);
+        }
+
+        public void Cancel()
+        {
+            CancelGenerate(_token);   
         }
 
         public uint Count
@@ -51,9 +64,12 @@ namespace VHACDSharp
 
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern IntPtr GenerateCompoundShape(uint vertexCount, uint indicesCount, [In] float[] vertexes, [In] uint[] indices, bool simpleHull,
-            int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, float alpha, float threshold);
+            int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, float alpha, float threshold, int token);
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern void DeleteHulls(IntPtr hulls);
+
+        [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
+        private static extern void CancelGenerate(int token);
 
         [DllImport("VHACD", CallingConvention = CallingConvention.Cdecl), SuppressUnmanagedCodeSecurity]
         private static extern uint GetNumHulls(IntPtr hulls);

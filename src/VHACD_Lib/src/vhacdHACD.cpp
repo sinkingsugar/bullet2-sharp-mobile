@@ -26,6 +26,8 @@
 #include <fstream>
 #include <omp.h>
 
+#include <atomic>
+
 //#define VHACD_DEBUG
 namespace VHACD
 { 
@@ -758,7 +760,7 @@ namespace VHACD
 										int posSampling, int angleSampling,
 										int posRefine, int angleRefine,
 										Real alpha, Real concavityThreshold,
-                                        std::vector< Mesh * > & parts, CallBackFunction callBack)
+                                        std::vector< Mesh * > & parts, CallBackFunction callBack,  std::atomic_bool& cancelToken)
 	{
 		if (callBack)
 		{
@@ -789,14 +791,20 @@ namespace VHACD
         
         Real volume0 = fabs(inputParts[0]->ComputeVolume());
 
+		if(cancelToken) return false;
+
         int sub = 0;
         while( sub++ < depth && inputParts.size() > 0)
         {
+			if(cancelToken) return false;
+
             const size_t nInputParts = inputParts.size();
             std::vector< Mesh * > temp;
             temp.reserve(nInputParts);
             for(size_t p = 0; p < nInputParts; ++p)
             {
+				if(cancelToken) return false;
+
 				printf("sub %i p %i\n", sub, p);
                 Mesh * mesh = inputParts[p];
 				mesh->ComputeNormals();
@@ -807,9 +815,13 @@ namespace VHACD
                 mesh->ComputeBB();
 		        Real volume = fabs(mesh->ComputeVolume());
 
+				if(cancelToken) return false;
+
                 Mesh ch;
                 mesh->ComputeConvexHull(ch);
                 Real volumeCH = fabs(ch.ComputeVolume());
+
+				if(cancelToken) return false;
 
                 Real concavity = (volumeCH - volume) / volume0;
 

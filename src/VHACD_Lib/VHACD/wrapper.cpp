@@ -1,7 +1,15 @@
 #include <vhacdHACD.h>
 #include <vhacdMeshDecimator.h>
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <atomic>
+#include <map>
 #include "wrapper.h"
+
+//#define DEBUG_EXPORT 1
+
+std::map<int, std::atomic_bool> gCancelTokens;
 
 struct Hull
 {
@@ -22,9 +30,19 @@ void VHCDCallBack(const char * msg)
 	printf("%s\n", msg);
 }
 
-void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices, bool simpleHull,
-							int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, float alpha, float threshold)
+void CancelGenerate(int token)
 {
+	if(gCancelTokens.find(token) != gCancelTokens.end())
+	{
+		gCancelTokens[token].exchange(true);
+	}
+}
+
+void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount, float* vertexes, unsigned int* indices, bool simpleHull,
+							int depth, int posSampling, int angleSampling, int posRefine, int angleRefine, float alpha, float threshold, int cancelToken)
+{
+	gCancelTokens[cancelToken].exchange(false);
+
 	long nTriangles = indicesCount / 3;
 	long nPoints = vertexCount;
 	VHACD::Vec3<VHACD::Real>* pPoints = new VHACD::Vec3<VHACD::Real>[nPoints];
@@ -52,7 +70,11 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
     delete [] pPoints;
 	delete [] pTriangles;
 
+	if(gCancelTokens[cancelToken]) return NULL;
+
 	mesh.CleanDuplicatedVectices();
+
+	if(gCancelTokens[cancelToken]) return NULL;
 
 	if(nTriangles > 1000)
 	{
@@ -93,11 +115,15 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 		delete [] pPoints;
 		delete [] pTriangles;
 	}
+
+	if(gCancelTokens[cancelToken]) return NULL;
  
 	if(simpleHull)
 	{
 		VHACD::Mesh meshCh;
 		mesh.ComputeConvexHull(meshCh);
+
+		if(gCancelTokens[cancelToken]) return NULL;
 
 		CompoundHull* compound = new CompoundHull();
 		compound->count = 1;
@@ -120,17 +146,28 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 			compound->hulls[0].tris[v] = cht[v];
 		}
 
+#if DEBUG_EXPORT
+		meshCh.SaveOFF("M:\\test.off");
+#endif
+
 		return compound;
 	}
 
 	//else
 
 	std::vector<VHACD::Mesh*> parts;
-    VHACD::ApproximateConvexDecomposition(mesh, depth, posSampling, angleSampling, posRefine, angleRefine, alpha, threshold, parts, &VHCDCallBack);
+    VHACD::ApproximateConvexDecomposition(mesh, depth, posSampling, angleSampling, posRefine, angleRefine, alpha, threshold, parts, &VHCDCallBack, gCancelTokens[cancelToken]);
+
+	if(gCancelTokens[cancelToken]) return NULL;
 
 	CompoundHull* compound = new CompoundHull();
 	compound->count = parts.size();
 	compound->hulls = (Hull*)malloc(sizeof(Hull) * compound->count);
+
+#if DEBUG_EXPORT
+	std::ofstream foutCH("M:\\test.wrl");
+	VHACD::Material mat;
+#endif
 
 	for(unsigned int i = 0; i < compound->count; i++)
 	{
@@ -153,7 +190,25 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 		{
 			compound->hulls[i].tris[v] = cht[v];
 		}
+
+#if DEBUG_EXPORT
+		mat.m_diffuseColor.X() = mat.m_diffuseColor.Y() = mat.m_diffuseColor.Z() = 0.0;
+        while (mat.m_diffuseColor.X() == mat.m_diffuseColor.Y() ||
+                mat.m_diffuseColor.Z() == mat.m_diffuseColor.Y() ||
+                mat.m_diffuseColor.Z() == mat.m_diffuseColor.X()  )
+        {
+            mat.m_diffuseColor.X() = (rand()%100) / 100.0;
+            mat.m_diffuseColor.Y() = (rand()%100) / 100.0;
+            mat.m_diffuseColor.Z() = (rand()%100) / 100.0;
+        }
+
+		ch.SaveVRML2(foutCH, mat);
+#endif
 	}
+
+#if DEBUG_EXPORT
+	foutCH.close();
+#endif
 
 	return compound;
 }

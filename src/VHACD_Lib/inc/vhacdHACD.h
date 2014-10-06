@@ -26,6 +26,8 @@
 #include <functional>
 #endif
 
+#include <atomic>
+
 namespace VHACD
 {
 	static const Real EPSILON = 0.0000000001;
@@ -265,6 +267,6 @@ namespace VHACD
 										int posSampling, int angleSampling,
 										int posRefine, int angleRefine, 
                                         Real alpha, Real concavityThreshold,
-                                        std::vector< Mesh * > & parts, CallBackFunction callBack);
+                                        std::vector< Mesh * > & parts, CallBackFunction callBack, std::atomic_bool& cancelToken);
 }
 #endif
