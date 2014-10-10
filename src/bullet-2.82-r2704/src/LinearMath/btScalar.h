@@ -68,11 +68,13 @@ inline int	btGetVersion()
 		#else
 
 #if (defined (_WIN32) && (_MSC_VER) && _MSC_VER >= 1400) && (!defined (BT_USE_DOUBLE_PRECISION))
-			#if _MSC_VER>1400
+			#if _MSC_VER>1400 && !_M_ARM
 				#define BT_USE_SIMD_VECTOR3
 			#endif
 
-			#define BT_USE_SSE
+			#ifndef _M_ARM
+				#define BT_USE_SSE
+			#endif
 			#ifdef BT_USE_SSE
 			//BT_USE_SSE_IN_API is disabled under Windows by default, because 
 			//it makes it harder to integrate Bullet into your application under Windows 
@@ -81,8 +83,8 @@ inline int	btGetVersion()
 			//If you are not embedded Bullet data in your classes, or make sure that you align those classes on 16-byte boundaries
 			//you can manually enable this line or set it in the build system for a bit of performance gain (a few percent, dependent on usage)
 			//#define BT_USE_SSE_IN_API
+				#include <emmintrin.h>
 			#endif //BT_USE_SSE
-			#include <emmintrin.h>
 #endif
 
 		#endif//_XBOX
