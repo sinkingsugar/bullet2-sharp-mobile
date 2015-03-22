@@ -141,7 +141,7 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 
 		compound->hulls[0].tris = (unsigned int*)malloc(sizeof(unsigned int) * 3 * compound->hulls[0].indices);	
 		const long* cht = meshCh.GetTriangles();
-		for(unsigned int v = 0; v < compound->hulls[0].points * 3; v++)
+		for(unsigned int v = 0; v < compound->hulls[0].indices * 3; v++)
 		{
 			compound->hulls[0].tris[v] = cht[v];
 		}
@@ -186,7 +186,7 @@ void* GenerateCompoundShape(unsigned int vertexCount, unsigned int indicesCount,
 
 		compound->hulls[i].tris = (unsigned int*)malloc(sizeof(unsigned int) * 3 * compound->hulls[i].indices);	
 		const long* cht = ch.GetTriangles();
-		for(unsigned int v = 0; v < compound->hulls[i].points * 3; v++)
+		for(unsigned int v = 0; v < compound->hulls[i].indices * 3; v++)
 		{
 			compound->hulls[i].tris[v] = cht[v];
 		}
