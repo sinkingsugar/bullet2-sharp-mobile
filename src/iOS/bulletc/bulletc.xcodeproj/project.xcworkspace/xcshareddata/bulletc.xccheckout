@@ -10,29 +10,29 @@
 	<string>bulletc</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F7CE0855-56F5-4D23-A163-A123F08850F3</key>
-		<string>ssh://github.com/sinkingsugar/bullet2-sharp-mobile.git</string>
+		<key>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</key>
+		<string>github.com:SiliconStudio/bullet2-sharp-mobile.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>src/iOS/bulletc/bulletc.xcodeproj/project.xcworkspace</string>
+	<string>src/iOS/bulletc/bulletc.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F7CE0855-56F5-4D23-A163-A123F08850F3</key>
+		<key>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</key>
 		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/sinkingsugar/bullet2-sharp-mobile.git</string>
+	<string>github.com:SiliconStudio/bullet2-sharp-mobile.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F7CE0855-56F5-4D23-A163-A123F08850F3</string>
+	<string>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F7CE0855-56F5-4D23-A163-A123F08850F3</string>
+			<string>01FAF54C4D60433C2E2BA7463AE0381C586BB3E6</string>
 			<key>IDESourceControlWCCName</key>
 			<string>bullet2-sharp-mobile</string>
 		</dict>
