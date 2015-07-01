@@ -70,7 +70,7 @@ namespace BulletSharp
         }
     }
 
-    [Serializable, DebuggerTypeProxy(typeof(AlignedBroadphasePairArrayDebugView)), DebuggerDisplay("Count = {Count}")]
+    [DebuggerTypeProxy(typeof(AlignedBroadphasePairArrayDebugView)), DebuggerDisplay("Count = {Count}")]
     public class AlignedBroadphasePairArray : AlignedObjectArray, IList<BroadphasePair>, IDisposable
     {
         bool _preventDelete;

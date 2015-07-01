@@ -24,13 +24,13 @@ namespace BulletSharp
         public unsafe UnmanagedMemoryStream GetTriangleStream()
         {
             int length = btIndexedMesh_getNumTriangles(_native) * btIndexedMesh_getTriangleIndexStride(_native);
-            return new UnmanagedMemoryStream((byte*)btIndexedMesh_getTriangleIndexBase(_native).ToPointer(), length, length, FileAccess.ReadWrite);
+            return new UnmanagedMemoryStream((byte*)btIndexedMesh_getTriangleIndexBase(_native).ToPointer(), length, length);
         }
 
         public unsafe UnmanagedMemoryStream GetVertexStream()
         {
             int length = btIndexedMesh_getNumVertices(_native) * btIndexedMesh_getVertexStride(_native);
-            return new UnmanagedMemoryStream((byte*)btIndexedMesh_getVertexBase(_native).ToPointer(), length, length, FileAccess.ReadWrite);
+            return new UnmanagedMemoryStream((byte*)btIndexedMesh_getVertexBase(_native).ToPointer(), length, length);
         }
 
         public PhyScalarType IndexType

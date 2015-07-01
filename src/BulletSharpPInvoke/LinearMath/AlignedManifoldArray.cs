@@ -70,7 +70,7 @@ namespace BulletSharp
         }
     }
 
-    [Serializable, DebuggerTypeProxy(typeof(AlignedManifoldArrayDebugView)), DebuggerDisplay("Count = {Count}")]
+    [DebuggerTypeProxy(typeof(AlignedManifoldArrayDebugView)), DebuggerDisplay("Count = {Count}")]
     public class AlignedManifoldArray : AlignedObjectArray, IList<PersistentManifold>, IDisposable
     {
         bool _preventDelete;

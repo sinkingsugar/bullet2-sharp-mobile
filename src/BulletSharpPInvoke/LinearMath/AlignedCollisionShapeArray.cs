@@ -70,7 +70,7 @@ namespace BulletSharp
         }
     }
 
-    [Serializable, DebuggerTypeProxy(typeof(AlignedCollisionShapeArrayDebugView)), DebuggerDisplay("Count = {Count}")]
+    [DebuggerTypeProxy(typeof(AlignedCollisionShapeArrayDebugView)), DebuggerDisplay("Count = {Count}")]
     public class AlignedCollisionShapeArray : AlignedObjectArray, IList<CollisionShape>, IDisposable
     {
         bool _preventDelete;
