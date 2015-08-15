@@ -223,6 +223,7 @@ LOCAL_SRC_FILES := \
    ../../libbulletc/src/btAlignedCollisionShapeArray_wrap.cpp \
    ../../libbulletc/src/btAlignedCollisionObjectArray_wrap.cpp \
    ../../libbulletc/src/btAlignedBroadphasePairArray_wrap.cpp \
-   ../../libbulletc/src/btActionInterface_wrap.cpp
+   ../../libbulletc/src/btActionInterface_wrap.cpp \
+   ../../libbulletc/src/SharpMotionState.cpp   
 
    include $(BUILD_SHARED_LIBRARY)

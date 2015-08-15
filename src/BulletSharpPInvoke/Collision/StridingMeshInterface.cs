@@ -24,7 +24,7 @@ namespace BulletSharp
             btStridingMeshInterface_getLockedReadOnlyVertexIndexBase(_native, out vertexBase, out numVerts, out vertsType, out vertexStride, out indexBase, out indexStride, out numFaces, out indicesType, subpart);
 
             int length = numFaces * indexStride;
-            return new UnmanagedMemoryStream((byte*)indexBase.ToPointer(), length, length, FileAccess.ReadWrite);
+            return new UnmanagedMemoryStream((byte*)indexBase.ToPointer(), length, length);
         }
 
         public unsafe UnmanagedMemoryStream GetVertexStream(int subpart = 0)
@@ -36,7 +36,7 @@ namespace BulletSharp
             btStridingMeshInterface_getLockedReadOnlyVertexIndexBase(_native, out vertexBase, out numVerts, out vertsType, out vertexStride, out indexBase, out indexStride, out numFaces, out indicesType, subpart);
 
             int length = numVerts * vertexStride;
-            return new UnmanagedMemoryStream((byte*)vertexBase.ToPointer(), length, length, FileAccess.ReadWrite);
+            return new UnmanagedMemoryStream((byte*)vertexBase.ToPointer(), length, length);
         }
 
 		public void CalculateAabbBruteForce(Vector3 aabbMin, Vector3 aabbMax)
