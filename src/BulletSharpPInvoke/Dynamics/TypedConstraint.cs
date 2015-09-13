@@ -361,6 +361,8 @@ namespace BulletSharp
             throw new NotImplementedException();
         }
 
+        GCHandle nativeHandle;
+
         internal TypedConstraint(IntPtr native)
         {
             _native = native;
@@ -370,8 +372,8 @@ namespace BulletSharp
                 throw new InvalidOperationException();
             }
 
-            GCHandle handle = GCHandle.Alloc(this);
-            btTypedConstraint_setUserConstraintPtr(_native, GCHandle.ToIntPtr(handle));
+            nativeHandle = GCHandle.Alloc(this);
+            btTypedConstraint_setUserConstraintPtr(_native, GCHandle.ToIntPtr(nativeHandle));
         }
 
 		public void BuildJacobian()
@@ -536,6 +538,11 @@ namespace BulletSharp
 
         protected virtual void Dispose(bool disposing)
         {
+            if (nativeHandle.IsAllocated)
+            {
+                nativeHandle.Free();
+            }
+
             if (_native != IntPtr.Zero)
             {
                 if (btTypedConstraint_getUserConstraintId(_native) != -1)
@@ -545,7 +552,7 @@ namespace BulletSharp
                     btTypedConstraint_delete(_native);
                 }
                 _native = IntPtr.Zero;
-            }
+            }  
         }
 
         ~TypedConstraint()

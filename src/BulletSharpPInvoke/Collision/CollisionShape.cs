@@ -1,5 +1,7 @@
 using SiliconStudio.Core.Mathematics;
-﻿using System;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -16,10 +18,16 @@ namespace BulletSharp
                 return null;
             }
 
-            IntPtr userPtr = btCollisionShape_getUserPointer(obj);
-            if (userPtr != IntPtr.Zero)
+            //IntPtr userPtr = btCollisionShape_getUserPointer(obj);
+            //if (userPtr != IntPtr.Zero)
+            //{
+            //    return GCHandle.FromIntPtr(userPtr).Target as CollisionShape;
+            //}
+
+            CollisionShape shape;
+            if (CollisionShapeRefs.TryGetValue(obj, out shape))
             {
-                return GCHandle.FromIntPtr(userPtr).Target as CollisionShape;
+                return shape;
             }
 
             switch (btCollisionShape_getShapeType(obj))
@@ -36,14 +44,20 @@ namespace BulletSharp
             throw new NotImplementedException();
         }
 
+        //GCHandle nativeHandle;
+
+        private static ConcurrentDictionary<IntPtr, CollisionShape> CollisionShapeRefs = new ConcurrentDictionary<IntPtr, CollisionShape>();
+
         internal CollisionShape(IntPtr obj)
         {
             _native = obj;
-            if (btCollisionShape_getUserPointer(_native) == IntPtr.Zero)
-            {
-                GCHandle handle = GCHandle.Alloc(this);
-                btCollisionShape_setUserPointer(_native, GCHandle.ToIntPtr(handle));
-            }
+            CollisionShapeRefs.TryAdd(_native, this);
+
+            //if (btCollisionShape_getUserPointer(_native) == IntPtr.Zero)
+            //{
+            //    nativeHandle = GCHandle.Alloc(this);
+            //    btCollisionShape_setUserPointer(_native, GCHandle.ToIntPtr(nativeHandle));
+            //}
         }
 
         public Vector3 CalculateLocalInertia(float mass)
@@ -185,12 +199,19 @@ namespace BulletSharp
 
 		protected virtual void Dispose(bool disposing)
 		{
-			if (_native != IntPtr.Zero)
+            //if (nativeHandle.IsAllocated)
+            //{
+            //    nativeHandle.Free();
+            //}
+
+            if (_native != IntPtr.Zero)
 			{
-				btCollisionShape_delete(_native);
+                CollisionShape shape;
+                CollisionShapeRefs.TryRemove(_native, out shape);
+                btCollisionShape_delete(_native);
 				_native = IntPtr.Zero;
 			}
-		}
+        }
 
 		~CollisionShape()
 		{
