@@ -1,5 +1,5 @@
 REM Windows
-call "%PROGRAMFILES(X86)%\Microsoft Visual Studio 12.0\vc\vcvarsall.bat" x86
+call "%PROGRAMFILES(X86)%\Microsoft Visual Studio 14.0\vc\vcvarsall.bat" x86
 
 pushd ..\VHACD_Lib\VHACD
 msbuild VHACD.sln /p:Configuration=Release
