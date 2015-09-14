@@ -1,5 +1,6 @@
 using SiliconStudio.Core.Mathematics;
 using System;
+using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -345,9 +346,14 @@ namespace BulletSharp
         {
             if (btTypedConstraint_getUserConstraintId(native) != -1)
             {
-                IntPtr handlePtr = btTypedConstraint_getUserConstraintPtr(native);
-                GCHandle handle = GCHandle.FromIntPtr(handlePtr);
-                return handle.Target as TypedConstraint;
+//                IntPtr handlePtr = btTypedConstraint_getUserConstraintPtr(native);
+//                GCHandle handle = GCHandle.FromIntPtr(handlePtr);
+//                return handle.Target as TypedConstraint;
+                TypedConstraint constraint;
+                if (TypedConstraintRefs.TryGetValue(native, out constraint))
+                {
+                    return constraint;
+                }
             }
 
             TypedConstraintType type = btTypedConstraint_getConstraintType(native);
@@ -358,22 +364,24 @@ namespace BulletSharp
                 default:
                     throw new NotImplementedException();
             }
-            throw new NotImplementedException();
         }
 
-        GCHandle nativeHandle;
+        //GCHandle nativeHandle;
+
+        private static readonly ConcurrentDictionary<IntPtr, TypedConstraint> TypedConstraintRefs = new ConcurrentDictionary<IntPtr, TypedConstraint>();
 
         internal TypedConstraint(IntPtr native)
         {
             _native = native;
+            TypedConstraintRefs.TryAdd(_native, this);
 
             if (btTypedConstraint_getUserConstraintId(_native) != -1)
             {
                 throw new InvalidOperationException();
             }
 
-            nativeHandle = GCHandle.Alloc(this);
-            btTypedConstraint_setUserConstraintPtr(_native, GCHandle.ToIntPtr(nativeHandle));
+            //nativeHandle = GCHandle.Alloc(this);
+            //btTypedConstraint_setUserConstraintPtr(_native, GCHandle.ToIntPtr(nativeHandle));
         }
 
 		public void BuildJacobian()
@@ -538,21 +546,23 @@ namespace BulletSharp
 
         protected virtual void Dispose(bool disposing)
         {
-            if (nativeHandle.IsAllocated)
-            {
-                nativeHandle.Free();
-            }
+//            if (nativeHandle.IsAllocated)
+//            {
+//                nativeHandle.Free();
+//            }
 
             if (_native != IntPtr.Zero)
             {
                 if (btTypedConstraint_getUserConstraintId(_native) != -1)
                 {
-                    IntPtr handlePtr = btTypedConstraint_getUserConstraintPtr(_native);
-                    GCHandle.FromIntPtr(handlePtr).Free();
+//                    IntPtr handlePtr = btTypedConstraint_getUserConstraintPtr(_native);
+//                    GCHandle.FromIntPtr(handlePtr).Free();
+                    TypedConstraint constraint;
+                    TypedConstraintRefs.TryRemove(_native, out constraint);
                     btTypedConstraint_delete(_native);
                 }
                 _native = IntPtr.Zero;
-            }  
+            }
         }
 
         ~TypedConstraint()

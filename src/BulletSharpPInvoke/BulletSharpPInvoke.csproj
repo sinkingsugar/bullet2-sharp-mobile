@@ -72,7 +72,6 @@
     <Compile Include="Collision\Convex2DConvex2DAlgorithm.cs" />
     <Compile Include="Collision\ConvexConcaveCollisionAlgorithm.cs" />
     <Compile Include="Collision\ConvexPlaneCollisionAlgorithm.cs" />
-    <Compile Include="Collision\ConvexTriangleMeshShape.cs" />
     <Compile Include="Collision\EmptyCollisionAlgorithm.cs" />
     <Compile Include="Collision\BoxCollision.cs">
       <SubType>Code</SubType>
@@ -91,7 +90,6 @@
     <Compile Include="Collision\BoxShape.cs" />
     <Compile Include="Collision\BroadphaseInterface.cs" />
     <Compile Include="Collision\BroadphaseProxy.cs" />
-    <Compile Include="Collision\BvhTriangleMeshShape.cs" />
     <Compile Include="Collision\CollisionAlgorithm.cs" />
     <Compile Include="Collision\CollisionObjectWrapper.cs" />
     <Compile Include="Collision\CollisionShape.cs" />
@@ -118,7 +116,6 @@
     <Compile Include="Collision\OverlappingPairCallback.cs" />
     <Compile Include="Collision\PersistentManifold.cs" />
     <Compile Include="Collision\PointCollector.cs" />
-    <Compile Include="Collision\ScaledBvhTriangleMeshShape.cs" />
     <Compile Include="Collision\ShapeHull.cs" />
     <Compile Include="Collision\SimulationIslandManager.cs" />
     <Compile Include="Collision\SphereShape.cs" />
@@ -126,10 +123,6 @@
     <Compile Include="Collision\Dispatcher.cs" />
     <Compile Include="Collision\PolyhedralConvexShape.cs" />
     <Compile Include="Collision\StaticPlaneShape.cs" />
-    <Compile Include="Collision\StridingMeshInterface.cs" />
-    <Compile Include="Collision\TriangleIndexVertexArray.cs" />
-    <Compile Include="Collision\TriangleMesh.cs" />
-    <Compile Include="Collision\TriangleMeshShape.cs" />
     <Compile Include="Collision\VoronoiSimplexSolver.cs" />
     <Compile Include="Dynamics\CharacterControllerInterface.cs" />
     <Compile Include="Dynamics\CollisionConfiguration.cs" />
