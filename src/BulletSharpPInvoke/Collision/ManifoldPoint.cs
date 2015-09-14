@@ -346,6 +346,8 @@ namespace BulletSharp
 			set { btManifoldPoint_setPositionWorldOnB(_native, ref value); }
 		}
 
+	    private GCHandle currentHandle;
+
         public object UserPersistentData
 		{
 			get
@@ -368,8 +370,8 @@ namespace BulletSharp
 
                 if (value != null)
                 {
-                    var handle = GCHandle.Alloc(value);
-                    btManifoldPoint_setUserPersistentData(_native, GCHandle.ToIntPtr(handle));
+                    currentHandle = GCHandle.Alloc(value);
+                    btManifoldPoint_setUserPersistentData(_native, GCHandle.ToIntPtr(currentHandle));
                 }
                 else
                 {
@@ -392,6 +394,12 @@ namespace BulletSharp
                 {
                     btManifoldPoint_delete(_native);
                 }
+
+			    if (currentHandle.IsAllocated)
+			    {
+			        currentHandle.Free();
+			    }
+
 				_native = IntPtr.Zero;
 			}
 		}
