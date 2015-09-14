@@ -27,6 +27,8 @@ namespace BulletSharp
         public void Dispose()
         {
             SharpMotionState_delete(_native);
+            _handle.Free();
+            _native = IntPtr.Zero;
         }
 
         [UnmanagedFunctionPointer(Native.Conv)]
@@ -40,8 +42,14 @@ namespace BulletSharp
 #endif
         static void InternalGetWorldTransform(IntPtr sharpReference, [Out] out Matrix transform)
         {
-            var obj = (SharpMotionState)GCHandle.FromIntPtr(sharpReference).Target;
-            obj.GetWorldTransform(out transform);
+            transform = Matrix.Identity;
+            try
+            {
+                var obj = (SharpMotionState)GCHandle.FromIntPtr(sharpReference).Target;
+                obj.GetWorldTransform(out transform);
+            }
+            catch(Exception)
+            { }
         }
 
 #if __iOS__
@@ -49,8 +57,13 @@ namespace BulletSharp
 #endif
         static void InternalSetWorldTransform(IntPtr sharpReference, [In] ref Matrix transform)
         {
-            var obj = (SharpMotionState)GCHandle.FromIntPtr(sharpReference).Target;
-            obj.SetWorldTransform(transform);
+            try
+            {
+                var obj = (SharpMotionState)GCHandle.FromIntPtr(sharpReference).Target;
+                obj.SetWorldTransform(transform);
+            }
+            catch(Exception)
+            { }
         }
 
         private static readonly GetWorldTransformUnmanagedDelegate GetWorldTransformUnmanaged = InternalGetWorldTransform;
