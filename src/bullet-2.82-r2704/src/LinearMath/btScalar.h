@@ -42,7 +42,7 @@ inline int	btGetVersion()
 
 #ifdef _WIN32
 
-		#if defined(__MINGW32__) || defined(__CYGWIN__) || (defined (_MSC_VER) && _MSC_VER < 1300)
+		#if defined(__MINGW32__) || defined(__CYGWIN__) || (defined (_MSC_VER) && _MSC_VER < 1300) || defined(_M_ARM)
 
 			#define SIMD_FORCE_INLINE inline
 			#define ATTRIBUTE_ALIGNED16(a) a
@@ -75,6 +75,7 @@ inline int	btGetVersion()
 			#ifndef _M_ARM
 				#define BT_USE_SSE
 			#endif
+			
 			#ifdef BT_USE_SSE
 			//BT_USE_SSE_IN_API is disabled under Windows by default, because 
 			//it makes it harder to integrate Bullet into your application under Windows 
