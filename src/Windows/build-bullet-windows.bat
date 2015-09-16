@@ -39,16 +39,16 @@ if %ERRORLEVEL% neq 0 GOTO :error_popd
 popd
 
 REM Windows Phone
-mkdir ..\build\bullet\WindowsPhone\x86
-pushd ..\build\bullet\WindowsPhone\x86
-cmake ..\..\..\..\bullet-2.82-r2704\ -G "Visual Studio 14" -DCMAKE_SYSTEM_NAME=WindowsPhone -DCMAKE_SYSTEM_VERSION=8.1 -DUSE_MSVC_RUNTIME_LIBRARY_DLL=ON -DBUILD_MULTITHREADING=OFF
+mkdir ..\build\bullet\WindowsPhone\ARM
+pushd ..\build\bullet\WindowsPhone\ARM
+cmake ..\..\..\..\bullet-2.82-r2704\ -G "Visual Studio 14 ARM" -DCMAKE_SYSTEM_NAME=WindowsPhone -DCMAKE_SYSTEM_VERSION=8.1 -DUSE_MSVC_RUNTIME_LIBRARY_DLL=ON -DBUILD_MULTITHREADING=OFF
 msbuild BULLET_PHYSICS.sln /p:Configuration=Release /t:LinearMath:Rebuild;BulletCollision:Rebuild;BulletDynamics:Rebuild;BulletFileLoader:Rebuild;BulletSoftBody:Rebuild;BulletWorldImporter:Rebuild;BulletXmlWorldImporter:Rebuild
 if %ERRORLEVEL% neq 0 GOTO :error_popd
 popd
 
-mkdir ..\build\bullet\WindowsPhone\ARM
-pushd ..\build\bullet\WindowsPhone\ARM
-cmake ..\..\..\..\bullet-2.82-r2704\ -G "Visual Studio 14 ARM" -DCMAKE_SYSTEM_NAME=WindowsPhone -DCMAKE_SYSTEM_VERSION=8.1 -DUSE_MSVC_RUNTIME_LIBRARY_DLL=ON -DBUILD_MULTITHREADING=OFF
+mkdir ..\build\bullet\WindowsPhone\x86
+pushd ..\build\bullet\WindowsPhone\x86
+cmake ..\..\..\..\bullet-2.82-r2704\ -G "Visual Studio 14" -DCMAKE_SYSTEM_NAME=WindowsPhone -DCMAKE_SYSTEM_VERSION=8.1 -DUSE_MSVC_RUNTIME_LIBRARY_DLL=ON -DBUILD_MULTITHREADING=OFF
 msbuild BULLET_PHYSICS.sln /p:Configuration=Release /t:LinearMath:Rebuild;BulletCollision:Rebuild;BulletDynamics:Rebuild;BulletFileLoader:Rebuild;BulletSoftBody:Rebuild;BulletWorldImporter:Rebuild;BulletXmlWorldImporter:Rebuild
 if %ERRORLEVEL% neq 0 GOTO :error_popd
 popd
