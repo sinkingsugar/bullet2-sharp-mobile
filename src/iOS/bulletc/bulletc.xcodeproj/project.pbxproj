@@ -250,7 +250,7 @@
 		9979BE6219889E0600FE00C5 /* gim_contact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9979BE5719889E0600FE00C5 /* gim_contact.cpp */; };
 		9979BE6319889E0600FE00C5 /* gim_memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9979BE5819889E0600FE00C5 /* gim_memory.cpp */; };
 		9979BE6419889E0600FE00C5 /* gim_tri_collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9979BE5919889E0600FE00C5 /* gim_tri_collision.cpp */; };
-		C4F2E44B1BB40F9100B2A071 /* btHeightfieldTerrainShape _wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4F2E44A1BB40F9100B2A071 /* btHeightfieldTerrainShape _wrap.cpp */; };
+		C4F2E44B1BB40F9100B2A071 /* btHeightfieldTerrainShape_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4F2E44A1BB40F9100B2A071 /* btHeightfieldTerrainShape_wrap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -521,7 +521,7 @@
 		9979BE5719889E0600FE00C5 /* gim_contact.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gim_contact.cpp; path = "../../../bullet-2.82-r2704/src/BulletCollision/Gimpact/gim_contact.cpp"; sourceTree = "<group>"; };
 		9979BE5819889E0600FE00C5 /* gim_memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gim_memory.cpp; path = "../../../bullet-2.82-r2704/src/BulletCollision/Gimpact/gim_memory.cpp"; sourceTree = "<group>"; };
 		9979BE5919889E0600FE00C5 /* gim_tri_collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gim_tri_collision.cpp; path = "../../../bullet-2.82-r2704/src/BulletCollision/Gimpact/gim_tri_collision.cpp"; sourceTree = "<group>"; };
-		C4F2E44A1BB40F9100B2A071 /* btHeightfieldTerrainShape _wrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "btHeightfieldTerrainShape _wrap.cpp"; path = "../../../../../../../Users/giovanni.petrantoni/Documents/Development/paradox/externals/bullet2-sharp-mobile/src/libbulletc/src/btHeightfieldTerrainShape _wrap.cpp"; sourceTree = "<group>"; };
+		C4F2E44A1BB40F9100B2A071 /* btHeightfieldTerrainShape_wrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "btHeightfieldTerrainShape_wrap.cpp"; path = "../../libbulletc/src/btHeightfieldTerrainShape_wrap.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
