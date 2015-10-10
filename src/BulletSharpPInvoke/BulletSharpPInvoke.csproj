@@ -76,6 +76,7 @@
     <Compile Include="Collision\BoxCollision.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Collision\HeightfieldShape.cs" />
     <Compile Include="Collision\SoftBodyConcaveCollisionAlgorithm.cs" />
     <Compile Include="Collision\SoftRigidCollisionAlgorithm.cs" />
     <Compile Include="Collision\SoftSoftCollisionAlgorithm.cs" />

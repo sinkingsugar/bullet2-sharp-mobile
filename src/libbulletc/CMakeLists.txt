@@ -292,6 +292,8 @@ ADD_LIBRARY(${BULLETC_LIB} SHARED
     src/btWorldImporter_wrap.h
     src/SharpMotionState.h
     src/SharpMotionState.cpp
+	src/btHeightfieldTerrainShape_wrap.h
+	src/btHeightfieldTerrainShape_wrap.cpp
     ${MULTITHREADED_SOURCE}
 )
 
