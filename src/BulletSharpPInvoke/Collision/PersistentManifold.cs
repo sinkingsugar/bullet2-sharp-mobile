@@ -9,13 +9,12 @@ using System.Security;
 
 namespace BulletSharp
 {
-    public delegate void ContactDestroyedEventHandler(object userPersistantData);
+    public delegate void ContactDestroyedEventHandler(IntPtr userPersistantData);
     public delegate void ContactProcessedEventHandler(ManifoldPoint cp, CollisionObject body0, CollisionObject body1);
 
 	public class PersistentManifold //: TypedObject
 	{
         internal IntPtr _native;
-        bool _preventDelete;
 
         static ContactDestroyedEventHandler _contactDestroyed;
         static ContactProcessedEventHandler _contactProcessed;
@@ -36,7 +35,7 @@ namespace BulletSharp
 #endif
         static bool ContactDestroyedUnmanaged(IntPtr userPersistentData)
         {
-            _contactDestroyed.Invoke(GCHandle.FromIntPtr(userPersistentData).Target);
+            _contactDestroyed.Invoke(userPersistentData);
 	        return false;
         }
 
@@ -113,10 +112,9 @@ namespace BulletSharp
             }
         }
 
-		internal PersistentManifold(IntPtr native, bool preventDelete = false)
+		internal PersistentManifold(IntPtr native)
 		{
             _native = native;
-            _preventDelete = preventDelete;
 		}
 
 		public PersistentManifold()
@@ -154,12 +152,14 @@ namespace BulletSharp
 			return btPersistentManifold_getCacheEntry(_native, newPoint._native);
 		}
 
+	    readonly ManifoldPoint[] points = new ManifoldPoint[4];
+
 		public ManifoldPoint GetContactPoint(int index)
 		{
-			return new ManifoldPoint(btPersistentManifold_getContactPoint(_native, index), true);
+		    return points[index] ?? (points[index] = new ManifoldPoint(btPersistentManifold_getContactPoint(_native, index), true));
 		}
 
-		public void RefreshContactPoints(Matrix trA, Matrix trB)
+	    public void RefreshContactPoints(Matrix trA, Matrix trB)
 		{
 			btPersistentManifold_refreshContactPoints(_native, ref trA, ref trB);
 		}
@@ -259,7 +259,7 @@ namespace BulletSharp
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btPersistentManifold_getContactProcessingThreshold(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern int btPersistentManifold_getIndex1a(IntPtr obj);
+		internal static extern int btPersistentManifold_getIndex1a(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern int btPersistentManifold_getNumContacts(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

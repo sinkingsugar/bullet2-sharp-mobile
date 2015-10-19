@@ -132,7 +132,7 @@ namespace BulletSharp
 
                     throw new ArgumentOutOfRangeException("index");
 
-                return new PersistentManifold(btManifoldArray_at(_native, index), true);
+                return new PersistentManifold(btManifoldArray_at(_native, index));
             }
             set
             {
