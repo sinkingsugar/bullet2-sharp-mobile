@@ -1,5 +1,6 @@
 using SiliconStudio.Core.Mathematics;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security;
 
@@ -206,12 +207,23 @@ namespace BulletSharp
 		{
 			btDispatcher_freeCollisionAlgorithm(_native, ptr);
 		}
+
+        readonly Dictionary<long, PersistentManifold> manifolds = new Dictionary<long, PersistentManifold>();
         
 		public PersistentManifold GetManifoldByIndexInternal(int index)
 		{
-            return new PersistentManifold(btDispatcher_getManifoldByIndexInternal(_native, index), true);
+            var ptr = btDispatcher_getManifoldByIndexInternal(_native, index);
+
+            PersistentManifold manifold;
+		    if (manifolds.TryGetValue((long)ptr, out manifold)) return manifold;
+
+            manifold = new PersistentManifold(ptr);
+		    manifolds.Add((long)ptr, manifold);
+
+		    return manifold;
 		}
-        /*
+
+	    /*
 		public PersistentManifold GetNewManifold(CollisionObject b0, CollisionObject b1)
 		{
 			return btDispatcher_getNewManifold(_native, b0._native, b1._native);

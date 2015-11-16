@@ -90,7 +90,7 @@ namespace BulletSharp
 
 		public PersistentManifold Manifold
 		{
-            get { return new PersistentManifold(btConvex2dConvex2dAlgorithm_getManifold(_native), true); }
+            get { return new PersistentManifold(btConvex2dConvex2dAlgorithm_getManifold(_native)); }
 		}
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

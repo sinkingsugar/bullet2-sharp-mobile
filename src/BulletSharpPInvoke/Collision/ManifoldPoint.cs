@@ -380,7 +380,19 @@ namespace BulletSharp
             }
 		}
 
-		public void Dispose()
+	    public IntPtr UserPersistentPtr
+	    {
+	        get
+	        {
+	            return btManifoldPoint_getUserPersistentData(_native);
+            }
+	        set
+	        {
+                btManifoldPoint_setUserPersistentData(_native, value);
+            }
+	    }
+
+        public void Dispose()
 		{
 			Dispose(true);
 			GC.SuppressFinalize(this);
