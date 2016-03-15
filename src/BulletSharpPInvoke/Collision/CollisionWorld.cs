@@ -900,6 +900,8 @@ namespace BulletSharp
 		internal CollisionWorld(IntPtr native)
 		{
 			_native = native;
+
+		    bufferData = SiliconStudioXenko_GetBufferData(collisionsBuffer);
 		}
 
 		public CollisionWorld(Dispatcher dispatcher, BroadphaseInterface broadphasePairCache, CollisionConfiguration collisionConfiguration)
@@ -908,7 +910,9 @@ namespace BulletSharp
 			_dispatcher = dispatcher;
 			_broadphase = broadphasePairCache;
 			_collisionConfiguration = collisionConfiguration;
-		}
+
+            bufferData = SiliconStudioXenko_GetBufferData(collisionsBuffer);
+        }
 
 		public void AddCollisionObject(CollisionObject collisionObject, CollisionFilterGroups collisionFilterGroup, CollisionFilterGroups collisionFilterMask)
 		{
@@ -1090,7 +1094,9 @@ namespace BulletSharp
 				btCollisionWorld_delete(_native);
 				_native = IntPtr.Zero;
 			}
-		}
+
+            SiliconStudioXenko_DeleteBuffer(collisionsBuffer);
+        }
 
 		~CollisionWorld()
 		{
@@ -1161,5 +1167,26 @@ namespace BulletSharp
 		static extern void btCollisionWorld_updateSingleAabb(IntPtr obj, IntPtr colObj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btCollisionWorld_delete(IntPtr obj);
-	}
+
+        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        static extern IntPtr SiliconStudioXenko_CreateBuffer();
+
+        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        static extern void SiliconStudioXenko_DeleteBuffer(IntPtr buffer);
+
+        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        static extern int SiliconStudioXenko_GetCollisions(IntPtr collisionWorld, IntPtr shape, IntPtr dataBuffer);
+
+        [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+        static extern IntPtr SiliconStudioXenko_GetBufferData(IntPtr dataBuffer);
+
+        private readonly IntPtr collisionsBuffer = SiliconStudioXenko_CreateBuffer();
+        private readonly IntPtr bufferData;
+
+	    public void GetCollisions(CollisionObject collisionObject, out IntPtr buffer, out int size)
+	    {
+            size = SiliconStudioXenko_GetCollisions(_native, collisionObject._native, collisionsBuffer);
+	        buffer = bufferData;
+	    }
+    }
 }

@@ -54,10 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SiliconStudio.Core">
-      <HintPath>..\..\..\..\Bin\Windows-Direct3D11\SiliconStudio.Core.dll</HintPath>
+      <HintPath>$(SiliconStudioXenkoDir)\Bin\Windows-Direct3D11\SiliconStudio.Core.dll</HintPath>
     </Reference>
     <Reference Include="SiliconStudio.Core.Mathematics">
-      <HintPath>..\..\..\..\Bin\Windows-Direct3D11\SiliconStudio.Core.Mathematics.dll</HintPath>
+      <HintPath>$(SiliconStudioXenkoDir)\Bin\Windows-Direct3D11\SiliconStudio.Core.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
