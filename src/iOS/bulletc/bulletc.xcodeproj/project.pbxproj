@@ -250,7 +250,7 @@
 		9979BE6219889E0600FE00C5 /* gim_contact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9979BE5719889E0600FE00C5 /* gim_contact.cpp */; };
 		9979BE6319889E0600FE00C5 /* gim_memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9979BE5819889E0600FE00C5 /* gim_memory.cpp */; };
 		9979BE6419889E0600FE00C5 /* gim_tri_collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9979BE5919889E0600FE00C5 /* gim_tri_collision.cpp */; };
-		C411DD3E1BF2D89600D1E350 /* btHeightfieldTerrainShape_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C411DD3D1BF2D89600D1E350 /* btHeightfieldTerrainShape_wrap.cpp */; settings = {ASSET_TAGS = (); }; };
+		C411DD3E1BF2D89600D1E350 /* btHeightfieldTerrainShape_wrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C411DD3D1BF2D89600D1E350 /* btHeightfieldTerrainShape_wrap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1210,8 +1210,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -1247,8 +1247,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;

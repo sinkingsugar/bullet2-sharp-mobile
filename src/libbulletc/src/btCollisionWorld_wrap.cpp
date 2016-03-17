@@ -681,3 +681,95 @@ AllHitsConvexResultCallback* btCollisionWorld_AllHitsConvexResultCallback_new(pA
 {
 	return new AllHitsConvexResultCallback(callback, sharpReference);
 }
+
+#include <vector>
+
+#define MAX_CONTACTS_PER_OBJECT 1024
+
+#pragma pack(push, 4)
+struct ContactData
+{
+	const void* ColliderA;
+	const void* ColliderB;
+
+	float Distance;
+
+	float NormalX;
+	float NormalY;
+	float NormalZ;
+
+	float PositionOnAx;
+	float PositionOnAy;
+	float PositionOnAz;
+
+	float PositionOnBx;
+	float PositionOnBy;
+	float PositionOnBz;
+};
+#pragma pack(pop)
+
+class ContactCallback : public btCollisionWorld::ContactResultCallback
+{
+public:
+	ContactCallback(std::vector<ContactData>* buffer) : data(buffer)
+	{
+	}
+
+	virtual	btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
+	{
+		if (data->size() == MAX_CONTACTS_PER_OBJECT) return 0;
+
+		ContactData result;
+
+		result.ColliderA = colObj0Wrap->getCollisionObject();
+		result.ColliderB = colObj1Wrap->getCollisionObject();
+		result.Distance = cp.getDistance();
+		result.NormalX = cp.m_normalWorldOnB.getX();
+		result.NormalY = cp.m_normalWorldOnB.getY();
+		result.NormalZ = cp.m_normalWorldOnB.getZ();
+		result.PositionOnAx = cp.m_positionWorldOnA.getX();
+		result.PositionOnAy = cp.m_positionWorldOnA.getY();
+		result.PositionOnAz = cp.m_positionWorldOnA.getZ();
+		result.PositionOnBx = cp.m_positionWorldOnB.getX();
+		result.PositionOnBy = cp.m_positionWorldOnB.getY();
+		result.PositionOnBz = cp.m_positionWorldOnB.getZ();
+
+		data->push_back(result);
+		
+		return 0;
+	}
+
+private:
+	std::vector<ContactData>* data;
+};
+
+int SiliconStudioXenko_GetCollisions(btCollisionWorld* world, btCollisionObject* shape, void* dataBuffer)
+{
+	std::vector<ContactData>* data = (std::vector<ContactData>*)dataBuffer;
+
+	data->clear();
+
+	ContactCallback cb(data);
+	world->contactTest(shape, cb);
+
+	return data->size();
+}
+
+void* SiliconStudioXenko_CreateBuffer()
+{
+	std::vector<ContactData>* buffer = new std::vector<ContactData>(MAX_CONTACTS_PER_OBJECT);
+	return buffer;
+}
+
+void SiliconStudioXenko_DeleteBuffer(void* buffer)
+{
+	std::vector<ContactData>* data = (std::vector<ContactData>*)buffer;
+	delete data;
+}
+
+void* SiliconStudioXenko_GetBufferData(void* buffer)
+{
+	std::vector<ContactData>* data = (std::vector<ContactData>*)buffer;
+	return &(*data)[0];
+}
+

@@ -51,7 +51,7 @@ namespace BulletSharp
 	{
 		internal IntPtr _native;
 
-        internal static CollisionObject GetManaged(IntPtr obj)
+        public static CollisionObject GetManaged(IntPtr obj)
         {
             if (obj == IntPtr.Zero)
             {

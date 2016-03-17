@@ -200,4 +200,9 @@ extern "C"
 	EXPORT void btCollisionWorld_updateAabbs(btCollisionWorld* obj);
 	EXPORT void btCollisionWorld_updateSingleAabb(btCollisionWorld* obj, btCollisionObject* colObj);
 	EXPORT void btCollisionWorld_delete(btCollisionWorld* obj);
+
+	EXPORT void* SiliconStudioXenko_CreateBuffer();
+	EXPORT void SiliconStudioXenko_DeleteBuffer(void* buffer);
+	EXPORT int SiliconStudioXenko_GetCollisions(btCollisionWorld* world, btCollisionObject* shape, void* dataBuffer);
+	EXPORT void* SiliconStudioXenko_GetBufferData(void* buffer);
 }
