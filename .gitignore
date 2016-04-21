@@ -49,3 +49,7 @@ Win32Debug
 *.CachedImage
 src/Android/obj
 src/Android/libs
+src/iOS/bulletc/build/
+src/iOS/bulletc/bulletc.xcodeproj/xcuserdata/
+src/iOS/bulletc/bulletc.xcodeproj/project.xcworkspace/
+.DS_Store
