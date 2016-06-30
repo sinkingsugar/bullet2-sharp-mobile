@@ -52,4 +52,6 @@ src/Android/libs
 src/iOS/bulletc/build/
 src/iOS/bulletc/bulletc.xcodeproj/xcuserdata/
 src/iOS/bulletc/bulletc.xcodeproj/project.xcworkspace/
+src/Linux/x86
+src/Linux/x64
 .DS_Store
