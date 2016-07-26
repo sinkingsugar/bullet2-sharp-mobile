@@ -283,6 +283,7 @@ namespace BulletSharp
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btPersistentManifold_setNumContacts(IntPtr obj, int cachedPoints);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+		[return: MarshalAs(UnmanagedType.I1)]
 		static extern bool btPersistentManifold_validContactDistance(IntPtr obj, IntPtr pt);
 
 #if __iOS__

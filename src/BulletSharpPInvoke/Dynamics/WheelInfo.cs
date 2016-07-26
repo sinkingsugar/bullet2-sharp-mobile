@@ -129,6 +129,7 @@ namespace BulletSharp
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern IntPtr btWheelInfoConstructionInfo_new();
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+		[return: MarshalAs(UnmanagedType.I1)]
 		static extern bool btWheelInfoConstructionInfo_getBIsFrontWheel(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btWheelInfoConstructionInfo_getChassisConnectionCS(IntPtr obj, [Out] out Vector3 value);
@@ -298,7 +299,8 @@ namespace BulletSharp
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void btWheelInfo_RaycastInfo_getHardPointWS(IntPtr obj, [Out] out Vector3 value);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-        static extern bool btWheelInfo_RaycastInfo_getIsInContact(IntPtr obj);
+        [return: MarshalAs(UnmanagedType.I1)]
+		static extern bool btWheelInfo_RaycastInfo_getIsInContact(IntPtr obj);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern float btWheelInfo_RaycastInfo_getSuspensionLength(IntPtr obj);
         [DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
@@ -547,6 +549,7 @@ namespace BulletSharp
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern IntPtr btWheelInfo_new(IntPtr ci);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+		[return: MarshalAs(UnmanagedType.I1)]
 		static extern bool btWheelInfo_getBIsFrontWheel(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btWheelInfo_getBrake(IntPtr obj);
