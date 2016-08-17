@@ -12,8 +12,8 @@ namespace BulletSharp
 		{
 		}
 
-		public KinematicCharacterController(PairCachingGhostObject ghostObject, ConvexShape convexShape, float stepHeight, int upAxis)
-			: base(btKinematicCharacterController_new(ghostObject._native, convexShape._native, stepHeight, upAxis))
+		public KinematicCharacterController(PairCachingGhostObject ghostObject, ConvexShape convexShape, float stepHeight, Vector3 upAxis)
+			: base(btKinematicCharacterController_new(ghostObject._native, convexShape._native, stepHeight, ref upAxis))
 		{
 		}
 
@@ -47,15 +47,12 @@ namespace BulletSharp
 			btKinematicCharacterController_setUseGhostSweepTest(_native, useGhostObjectSweepTest);
 		}
 
-		public PairCachingGhostObject GhostObject
-		{
-            get { return CollisionObject.GetManaged(btKinematicCharacterController_getGhostObject(_native)) as PairCachingGhostObject; }
-		}
+		public PairCachingGhostObject GhostObject => CollisionObject.GetManaged(btKinematicCharacterController_getGhostObject(_native)) as PairCachingGhostObject;
 
-		public float Gravity
+	    public Vector3 Gravity
 		{
-			get { return btKinematicCharacterController_getGravity(_native); }
-			set { btKinematicCharacterController_setGravity(_native, value); }
+			//get { return btKinematicCharacterController_getGravity(_native); }
+			set { btKinematicCharacterController_setGravity(_native, ref value); }
 		}
 
 		public float MaxSlope
@@ -65,19 +62,19 @@ namespace BulletSharp
 		}
 
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern IntPtr btKinematicCharacterController_new(IntPtr ghostObject, IntPtr convexShape, float stepHeight, int upAxis);
+		static extern IntPtr btKinematicCharacterController_new(IntPtr ghostObject, IntPtr convexShape, float stepHeight, [In] ref Vector3 upAxis);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern IntPtr btKinematicCharacterController_new2(IntPtr ghostObject, IntPtr convexShape, float stepHeight);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern IntPtr btKinematicCharacterController_getGhostObject(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern float btKinematicCharacterController_getGravity(IntPtr obj);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		static extern float btKinematicCharacterController_getGravity(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btKinematicCharacterController_getMaxSlope(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btKinematicCharacterController_setFallSpeed(IntPtr obj, float fallSpeed);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btKinematicCharacterController_setGravity(IntPtr obj, float gravity);
+		static extern void btKinematicCharacterController_setGravity(IntPtr obj, [In] ref Vector3 gravity);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btKinematicCharacterController_setJumpSpeed(IntPtr obj, float jumpSpeed);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

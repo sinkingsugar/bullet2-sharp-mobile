@@ -272,10 +272,10 @@ btScalar btRigidBody_computeAngularImpulseDenominator(btRigidBody* obj, btScalar
 	return obj->computeAngularImpulseDenominator(VECTOR3_USE(axis));
 }
 
-void btRigidBody_computeGyroscopicForce(btRigidBody* obj, btScalar maxGyroscopicForce)
-{
-	obj->computeGyroscopicForce(maxGyroscopicForce);
-}
+//void btRigidBody_computeGyroscopicForce(btRigidBody* obj, btScalar maxGyroscopicForce)
+//{
+//	obj->computeGyroscopicForce(maxGyroscopicForce);
+//}
 
 btScalar btRigidBody_computeImpulseDenominator(btRigidBody* obj, btScalar* pos, btScalar* normal)
 {

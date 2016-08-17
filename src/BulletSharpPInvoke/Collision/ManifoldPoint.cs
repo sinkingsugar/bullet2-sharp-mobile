@@ -197,17 +197,17 @@ namespace BulletSharp
 			set { btManifoldPoint_setCombinedRollingFriction(_native, value); }
 		}
 
-		public float ContactCFM1
-		{
-			get { return btManifoldPoint_getContactCFM1(_native); }
-			set { btManifoldPoint_setContactCFM1(_native, value); }
-		}
+//		public float ContactCFM1
+//		{
+//			get { return btManifoldPoint_getContactCFM1(_native); }
+//			set { btManifoldPoint_setContactCFM1(_native, value); }
+//		}
 
-		public float ContactCFM2
-		{
-			get { return btManifoldPoint_getContactCFM2(_native); }
-			set { btManifoldPoint_setContactCFM2(_native, value); }
-		}
+//		public float ContactCFM2
+//		{
+//			get { return btManifoldPoint_getContactCFM2(_native); }
+//			set { btManifoldPoint_setContactCFM2(_native, value); }
+//		}
 
 		public float ContactMotion1
 		{
@@ -267,11 +267,11 @@ namespace BulletSharp
 			set { btManifoldPoint_setLateralFrictionDir2(_native, ref value); }
 		}
 
-		public bool LateralFrictionInitialized
-		{
-			get { return btManifoldPoint_getLateralFrictionInitialized(_native); }
-			set { btManifoldPoint_setLateralFrictionInitialized(_native, value); }
-		}
+//		public bool LateralFrictionInitialized
+//		{
+//			get { return btManifoldPoint_getLateralFrictionInitialized(_native); }
+//			set { btManifoldPoint_setLateralFrictionInitialized(_native, value); }
+//		}
 
 		public int LifeTime
 		{
@@ -437,10 +437,10 @@ namespace BulletSharp
 		static extern float btManifoldPoint_getCombinedRestitution(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btManifoldPoint_getCombinedRollingFriction(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern float btManifoldPoint_getContactCFM1(IntPtr obj);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern float btManifoldPoint_getContactCFM2(IntPtr obj);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		static extern float btManifoldPoint_getContactCFM1(IntPtr obj);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		static extern float btManifoldPoint_getContactCFM2(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btManifoldPoint_getContactMotion1(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
@@ -457,9 +457,9 @@ namespace BulletSharp
 		static extern void btManifoldPoint_getLateralFrictionDir1(IntPtr obj, [Out] out Vector3 value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void btManifoldPoint_getLateralFrictionDir2(IntPtr obj, [Out] out Vector3 value);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		[return: MarshalAs(UnmanagedType.I1)]
-		static extern bool btManifoldPoint_getLateralFrictionInitialized(IntPtr obj);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		[return: MarshalAs(UnmanagedType.I1)]
+//		static extern bool btManifoldPoint_getLateralFrictionInitialized(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern int btManifoldPoint_getLifeTime(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
@@ -490,10 +490,10 @@ namespace BulletSharp
 		static extern void btManifoldPoint_setCombinedRestitution(IntPtr obj, float value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btManifoldPoint_setCombinedRollingFriction(IntPtr obj, float value);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btManifoldPoint_setContactCFM1(IntPtr obj, float value);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btManifoldPoint_setContactCFM2(IntPtr obj, float value);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		static extern void btManifoldPoint_setContactCFM1(IntPtr obj, float value);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		static extern void btManifoldPoint_setContactCFM2(IntPtr obj, float value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btManifoldPoint_setContactMotion1(IntPtr obj, float value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
@@ -510,8 +510,8 @@ namespace BulletSharp
         static extern void btManifoldPoint_setLateralFrictionDir1(IntPtr obj, [In] ref Vector3 value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
         static extern void btManifoldPoint_setLateralFrictionDir2(IntPtr obj, [In] ref Vector3 value);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btManifoldPoint_setLateralFrictionInitialized(IntPtr obj, bool value);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		static extern void btManifoldPoint_setLateralFrictionInitialized(IntPtr obj, bool value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern void btManifoldPoint_setLifeTime(IntPtr obj, int value);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

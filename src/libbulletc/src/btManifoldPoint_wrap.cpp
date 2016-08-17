@@ -123,15 +123,15 @@ btScalar btManifoldPoint_getCombinedRollingFriction(btManifoldPoint* obj)
 	return obj->m_combinedRollingFriction;
 }
 
-btScalar btManifoldPoint_getContactCFM1(btManifoldPoint* obj)
-{
-	return obj->m_contactCFM1;
-}
+//btScalar btManifoldPoint_getContactCFM1(btManifoldPoint* obj)
+//{
+//	return obj->m_contactCFM1;
+//}
 
-btScalar btManifoldPoint_getContactCFM2(btManifoldPoint* obj)
-{
-	return obj->m_contactCFM2;
-}
+//btScalar btManifoldPoint_getContactCFM2(btManifoldPoint* obj)
+//{
+//	return obj->m_contactCFM2;
+//}
 
 btScalar btManifoldPoint_getContactMotion1(btManifoldPoint* obj)
 {
@@ -173,10 +173,10 @@ void btManifoldPoint_getLateralFrictionDir2(btManifoldPoint* obj, btScalar* valu
 	VECTOR3_OUT(&obj->m_lateralFrictionDir2, value);
 }
 
-bool btManifoldPoint_getLateralFrictionInitialized(btManifoldPoint* obj)
-{
-	return obj->m_lateralFrictionInitialized;
-}
+//bool btManifoldPoint_getLateralFrictionInitialized(btManifoldPoint* obj)
+//{
+//	return obj->m_lateralFrictionInitialized;
+//}
 
 int btManifoldPoint_getLifeTime(btManifoldPoint* obj)
 {
@@ -258,15 +258,15 @@ void btManifoldPoint_setCombinedRollingFriction(btManifoldPoint* obj, btScalar v
 	obj->m_combinedRollingFriction = value;
 }
 
-void btManifoldPoint_setContactCFM1(btManifoldPoint* obj, btScalar value)
-{
-	obj->m_contactCFM1 = value;
-}
+//void btManifoldPoint_setContactCFM1(btManifoldPoint* obj, btScalar value)
+//{
+//	obj->m_contactCFM1 = value;
+//}
 
-void btManifoldPoint_setContactCFM2(btManifoldPoint* obj, btScalar value)
-{
-	obj->m_contactCFM2 = value;
-}
+//void btManifoldPoint_setContactCFM2(btManifoldPoint* obj, btScalar value)
+//{
+//	obj->m_contactCFM2 = value;
+//}
 
 void btManifoldPoint_setContactMotion1(btManifoldPoint* obj, btScalar value)
 {
@@ -308,10 +308,10 @@ void btManifoldPoint_setLateralFrictionDir2(btManifoldPoint* obj, btScalar* valu
 	VECTOR3_IN(value, &obj->m_lateralFrictionDir2);
 }
 
-void btManifoldPoint_setLateralFrictionInitialized(btManifoldPoint* obj, bool value)
-{
-	obj->m_lateralFrictionInitialized = value;
-}
+//void btManifoldPoint_setLateralFrictionInitialized(btManifoldPoint* obj, bool value)
+//{
+//	obj->m_lateralFrictionInitialized = value;
+//}
 
 void btManifoldPoint_setLifeTime(btManifoldPoint* obj, int value)
 {

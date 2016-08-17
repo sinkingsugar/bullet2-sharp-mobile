@@ -103,10 +103,10 @@ namespace BulletSharp
 			return btRigidBody_computeAngularImpulseDenominator(_native, ref axis);
 		}
 
-		public void ComputeGyroscopicForce(float maxGyroscopicForce)
-		{
-			btRigidBody_computeGyroscopicForce(_native, maxGyroscopicForce);
-		}
+//		public void ComputeGyroscopicForce(float maxGyroscopicForce)
+//		{
+//			btRigidBody_computeGyroscopicForce(_native, maxGyroscopicForce);
+//		}
 
 		public float ComputeImpulseDenominator(Vector3 pos, Vector3 normal)
 		{
@@ -428,8 +428,8 @@ namespace BulletSharp
 		static extern void btRigidBody_clearForces(IntPtr obj);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btRigidBody_computeAngularImpulseDenominator(IntPtr obj, [In] ref Vector3 axis);
-		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
-		static extern void btRigidBody_computeGyroscopicForce(IntPtr obj, float maxGyroscopicForce);
+//		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
+//		static extern void btRigidBody_computeGyroscopicForce(IntPtr obj, float maxGyroscopicForce);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]
 		static extern float btRigidBody_computeImpulseDenominator(IntPtr obj, [In] ref Vector3 pos, [In] ref Vector3 normal);
 		[DllImport(Native.Dll, CallingConvention = Native.Conv), SuppressUnmanagedCodeSecurity]

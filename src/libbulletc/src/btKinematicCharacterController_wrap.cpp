@@ -4,9 +4,10 @@
 #include "conversion.h"
 #include "btKinematicCharacterController_wrap.h"
 
-btKinematicCharacterController* btKinematicCharacterController_new(btPairCachingGhostObject* ghostObject, btConvexShape* convexShape, btScalar stepHeight, int upAxis)
+btKinematicCharacterController* btKinematicCharacterController_new(btPairCachingGhostObject* ghostObject, btConvexShape* convexShape, btScalar stepHeight, btScalar* up)
 {
-	return new btKinematicCharacterController(ghostObject, convexShape, stepHeight, upAxis);
+	VECTOR3_CONV(up);
+	return new btKinematicCharacterController(ghostObject, convexShape, stepHeight, VECTOR3_USE(up));
 }
 
 btKinematicCharacterController* btKinematicCharacterController_new2(btPairCachingGhostObject* ghostObject, btConvexShape* convexShape, btScalar stepHeight)
@@ -19,10 +20,10 @@ btPairCachingGhostObject* btKinematicCharacterController_getGhostObject(btKinema
 	return obj->getGhostObject();
 }
 
-btScalar btKinematicCharacterController_getGravity(btKinematicCharacterController* obj)
-{
-	return obj->getGravity();
-}
+//btVector3 btKinematicCharacterController_getGravity(btKinematicCharacterController* obj)
+//{
+//	return obj->getGravity();
+//}
 
 btScalar btKinematicCharacterController_getMaxSlope(btKinematicCharacterController* obj)
 {
@@ -34,9 +35,10 @@ void btKinematicCharacterController_setFallSpeed(btKinematicCharacterController*
 	obj->setFallSpeed(fallSpeed);
 }
 
-void btKinematicCharacterController_setGravity(btKinematicCharacterController* obj, btScalar gravity)
+void btKinematicCharacterController_setGravity(btKinematicCharacterController* obj, btScalar* gravity)
 {
-	obj->setGravity(gravity);
+	VECTOR3_CONV(gravity);
+	obj->setGravity(VECTOR3_USE(gravity));
 }
 
 void btKinematicCharacterController_setJumpSpeed(btKinematicCharacterController* obj, btScalar jumpSpeed)
@@ -54,9 +56,9 @@ void btKinematicCharacterController_setMaxSlope(btKinematicCharacterController* 
 	obj->setMaxSlope(slopeRadians);
 }
 
-void btKinematicCharacterController_setUpAxis(btKinematicCharacterController* obj, int axis)
+void btKinematicCharacterController_setUpAxis(btKinematicCharacterController* obj, const btVector3& up)
 {
-	obj->setUpAxis(axis);
+	obj->setUp(up);
 }
 
 void btKinematicCharacterController_setUseGhostSweepTest(btKinematicCharacterController* obj, bool useGhostObjectSweepTest)
